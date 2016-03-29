@@ -1,0 +1,141 @@
+<ion-view view-title="{{device.data.name ? device.data.name : device.data._id}}">
+
+	<ion-nav-buttons side="right">
+		<button ng-click="device.showDeviceActionSheet()" class="button button-clear button-icon ion-android-more-vertical"></button>
+	</ion-nav-buttons>
+
+	<ion-pane>
+
+		<ion-tabs>
+			
+			<ion-tab title="Panel">
+				<ion-nav-view name="device-panel">
+					<ion-content>
+
+						<div class="list" style="display: flex; flex-flow: row wrap;">
+							<div class="item item-thumbnail-left item-text-wrap" style="flex: auto;">
+								<img src="{{device.getMainPicture()}}" ng-click="device.showDeviceActionSheet()" class="button button-outline">
+								<h2>{{device.data._id}}</h2>
+								<p>{{device.lastHistoryLine.info}}</p>
+								<!-- <div>
+									<button class="button button-clear button-positive">Arm</button>
+									<button class="button button-clear button-positive">Disarm</button>
+									<button class="button button-clear button-positive">State</button>
+								</div> -->
+							</div>
+							<div class="item item-text-wrap" style="flex: auto;">
+								<div class="row" style="max-width: 500px;">
+									<div class="col">Link:</div><div class="col">OK</div>
+									<div class="col">Tamper:</div><div class="col">OK</div>
+								</div>
+								<div class="row" style="max-width: 500px;">
+									<div class="col">Power:</div><div class="col">OK</div>
+									<div class="col">Battery:</div><div class="col">OK</div>
+								</div>
+							</div>
+						</div>
+
+<!-- 						<div class="row">
+							<div class="col item">01</div>
+							<div class="col item">02</div>
+							<div class="col item">03</div>
+							<div class="col item">04</div>
+						</div>
+						<div class="row">
+							<div class="col item">05</div>
+							<div class="col item">06</div>
+							<div class="col item">07</div>
+							<div class="col item">08</div>
+						</div>
+						<div class="row">
+							<div class="col item">09</div>
+							<div class="col item">10</div>
+							<div class="col item">11</div>
+							<div class="col item">12</div>
+						</div>
+						<div class="row">
+							<div class="col item">13</div>
+							<div class="col item">14</div>
+							<div class="col item">15</div>
+							<div class="col item">16</div>
+						</div>
+						<div class="row">
+							<div class="col item">17</div>
+							<div class="col item">18</div>
+							<div class="col item">19</div>
+							<div class="col item">20</div>
+						</div>
+						<div class="row">
+							<div class="col item">21</div>
+							<div class="col item">22</div>
+							<div class="col item">23</div>
+							<div class="col item">24</div>
+						</div>
+						<div class="row">
+							<div class="col item">25</div>
+							<div class="col item">26</div>
+							<div class="col item">27</div>
+							<div class="col item">28</div>
+						</div>
+						<div class="row">
+							<div class="col item">29</div>
+							<div class="col item">30</div>
+							<div class="col item">31</div>
+							<div class="col item">32</div>
+						</div>
+ -->
+
+						<div class="list" style="display: flex; flex-flow: row wrap; justify-content: center;">
+							<div ng-repeat="zone in device.data.zones" class="list card" style="flex: 1 1 150px; margin: 4px; max-width: 180px;">
+
+								<div class="item item-divider bar bar-header">
+									<button class="button button-clear button-dark">{{zone._id}}</button>
+									<h1 class="title">{{zone.name}}</h1>
+									<button class="button icon ion-android-more-vertical" ng-click="device.showZoneActionSheet(zone)"></button>
+								</div>
+
+								<!-- <div class="item item-thumbnail-left item-text-wrap"> -->
+								<div class="item">
+
+									<img src="{{device.getZoneMainPicture(zone)}}" style="width: 30px; height: 30px;" ng-click="device.showZoneInfoPopup(zone)">
+									<!-- <h2>{{device.name ? device.name : device._id}}</h2> -->
+									<!-- <p>Some data here</p> -->
+									
+								</div>
+
+							</div>
+						</div>
+
+					</ion-content>
+				</ion-nav-view>
+			</ion-tab>
+			
+			<ion-tab title="History">
+				<ion-nav-view name="device-history">
+					<ion-content>
+						<!-- <ion-list ng-repeat="line in device.history">
+							<ion-item>{{line.at}}: {{line.info}}</ion-item>
+						</ion-list> -->
+						<ion-item collection-repeat="line in device.history">{{line.at}}: {{line.info}}</ion-item>
+					</ion-content>
+				</ion-nav-view>
+			</ion-tab>
+		
+			<ion-tab title="Users">
+				<ion-nav-view name="device-users">
+					<ion-content>
+						<ion-list>
+							<ion-item>01 Me</ion-item>
+							<ion-item>02 Mike</ion-item>
+							<ion-item>03 Alice</ion-item>
+							<ion-item>04 John</ion-item>
+						</ion-list>
+					</ion-content>
+				</ion-nav-view>
+			</ion-tab>
+
+		</ion-tabs>
+
+	</ion-pane>
+
+</ion-view>

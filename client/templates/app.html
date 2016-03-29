@@ -1,0 +1,84 @@
+<ion-side-menus enable-menu-with-back-views="false">
+
+	<ion-side-menu side="left" expose-aside-when="large">
+	<!-- <ion-side-menu side="left"> -->
+
+		<ion-header-bar class="bar-stable">
+			<h1 class="title">Menu</h1>
+		</ion-header-bar>
+	
+		<ion-content>
+			<ion-list>
+				<ion-item menu-close class="item-icon-left" href="#" ng-click="app.showNewDeviceModal()">
+					<i class="icon ion-plus"></i>
+					Add Device
+				</ion-item>
+				<ion-item menu-close class="item-icon-left" href="#/app/devices">
+					<i class="icon ion-ios-list-outline"></i>
+					Devices List
+				</ion-item>
+				<ion-item menu-close class="item-icon-left" href="#/app/settings">
+					<i class="icon ion-settings"></i>
+					Settings
+				</ion-item>
+				<ion-item menu-close class="item-icon-left" href="#/app/logout">
+					<i class="icon ion-log-out"></i>
+					Logout
+				</ion-item>
+				<ion-item menu-close class="item-icon-left" href="#/app/help">
+					<i class="icon ion-help"></i>
+					Help
+				</ion-item>
+				<ion-item menu-close class="item-icon-left" href="#/app/about">
+					<i class="icon ion-information"></i>
+					About
+				</ion-item>
+			</ion-list>
+		</ion-content>
+	
+	</ion-side-menu>
+
+	<ion-side-menu-content>
+
+		<ion-nav-bar class="bar-stable">
+			<ion-nav-back-button>
+			</ion-nav-back-button>
+
+			<ion-nav-buttons side="left">
+				<button class="button button-icon button-clear ion-navicon-round" menu-toggle="left"></button>
+			</ion-nav-buttons>
+		</ion-nav-bar>
+
+		<ion-nav-view name="content-area"></ion-nav-view>
+
+	</ion-side-menu-content>
+
+
+	<ion-side-menu side="right" expose-aside-when="large">
+		<ion-header-bar class="bar-stable">
+			<h1 class="title">News</h1>
+		</ion-header-bar>
+
+		<ion-content>
+			<div class="card">
+				<div class="item item-text-wrap">
+					<h2 class="title">New version is available</h2>
+					<p>Asf zxcv aqwer asfdzcv adfqwer. Ffda eqr.</p>
+				</div>
+			</div>
+			<div class="card">
+				<div class="item item-text-wrap">
+					<h2 class="title">New version is available</h2>
+					<p>Asf zxcv aqwer asfdzcv adfqwer. Ffda eqr.</p>
+				</div>
+			</div>
+			<div class="card">
+				<div class="item item-text-wrap">
+					<h2 class="title">New version is available</h2>
+					<p>Asf zxcv aqwer asfdzcv adfqwer. Ffda eqr.</p>
+				</div>
+			</div>
+		</ion-content>
+	</ion-side-menu>
+
+</ion-side-menus>

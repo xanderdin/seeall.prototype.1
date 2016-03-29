@@ -1,0 +1,26 @@
+<ion-modal-view ng-controller="NewDeviceCtrl as device">
+	
+	<ion-header-bar>
+		<h1 class="title">New Device</h1>
+		<div class="buttons">
+			<button class="button button-clear button-positive" ng-click="device.hideNewDeviceModal()">Cancel</button>
+		</div>
+	</ion-header-bar>
+
+	<ion-content>
+		<div class="list">
+			<label class="item item-input">
+				<input ng-model="device.gid" type="text" placeholder="GID">
+			</label>
+			<label class="item item-input">
+				<input ng-model="device.name" type="text" placeholder="Name">
+			</label>
+			<label class="item">
+				<button class="button button-block button-positive" ng-click="device.newDevice()">
+					Add
+				</button>
+			</label>
+		</div>
+	</ion-content>
+
+</ion-modal-view>
