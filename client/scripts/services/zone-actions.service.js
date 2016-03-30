@@ -4,23 +4,22 @@ angular
 
 
 function ZoneActions($rootScope, $ionicActionSheet, $ionicPopup) {
-	
-	this.showActionSheet = showActionSheet;
+
+	this.showEditActionSheet = showEditActionSheet;
+	this.showCmdActionSheet = showCmdActionSheet;
 	this.cmdArm = cmdArm;
 	this.cmdDisarm = cmdDisarm;
 	this.showEditPopup = showEditPopup;
 	this.showRemovePopup = showRemovePopup;
 
 
-	function showActionSheet(device, zone) {
-		
+	function showEditActionSheet(device, zone) {
+
 		var buttons;
 		var titleText = zone.name ? zone.name : zone._id;
-		
+
 		//if (device.isActivated === true) {
 			buttons = [
-				{ text: 'Arm' },
-				{ text: 'Disarm' },
 				{ text: 'Edit' }
 			];
 		// } else {
@@ -28,7 +27,7 @@ function ZoneActions($rootScope, $ionicActionSheet, $ionicPopup) {
 		// 		{ text: 'Activate' }
 		// 	];
 		// }
-		
+
 		$ionicActionSheet.show({
 			buttons: buttons,
 			titleText: titleText,
@@ -37,12 +36,6 @@ function ZoneActions($rootScope, $ionicActionSheet, $ionicPopup) {
 			buttonClicked: function(index) {
 				switch (index) {
 					case 0:
-						cmdArm(device, zone);
-						break;
-					case 1:
-						cmdDisarm(device, zone);
-						break;
-					case 2:
 						showEditPopup(device, zone);
 						break;
 				}
@@ -52,7 +45,46 @@ function ZoneActions($rootScope, $ionicActionSheet, $ionicPopup) {
 				showRemovePopup(device, zone);
 				return true;
 			}
-		});		
+		});
+	}
+
+
+	function showCmdActionSheet(device, zone) {
+
+		var buttons;
+		var titleText = zone.name ? zone.name : zone._id;
+
+		//if (device.isActivated === true) {
+			buttons = [
+				{ text: 'Arm' },
+				{ text: 'Disarm' }
+			];
+		// } else {
+		// 	buttons = [
+		// 		{ text: 'Activate' }
+		// 	];
+		// }
+
+		$ionicActionSheet.show({
+			buttons: buttons,
+			titleText: titleText,
+			cancelText: 'Cancel',
+			buttonClicked: function(index) {
+				switch (index) {
+					case 0:
+						cmdArm(device, zone);
+						break;
+					case 1:
+						cmdDisarm(device, zone);
+						break;
+				}
+				return true;
+			//},
+			//destructiveButtonClicked: function() {
+			//	showRemovePopup(device, zone);
+			//	return true;
+			}
+		});
 	}
 
 
@@ -75,7 +107,7 @@ function ZoneActions($rootScope, $ionicActionSheet, $ionicPopup) {
 
 
 	function showEditPopup(device, zone) {
-	
+
 		var templateUrl = 'client/templates/zone-edit.html';
 
 		this._scope = $rootScope.$new();
@@ -99,7 +131,7 @@ function ZoneActions($rootScope, $ionicActionSheet, $ionicPopup) {
 
 		}).then(function(result) {
 
-			if (result && result !== zone.name) {
+			if (result !== undefined && result !== zone.name) {
 				//Devices.update({ _id: device._id, "zones._id": zone._id }, { $set: { "zones.$.name": result } });
 				Meteor.call('updateZone', device._id, { _id: zone._id, name: result });
 			}

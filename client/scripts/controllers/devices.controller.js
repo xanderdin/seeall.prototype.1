@@ -9,20 +9,26 @@ function DevicesCtrl($scope, $reactive, NewDevice, DevicePictures, DeviceActions
 
 	this.getMainPicture = getMainPicture;
 	this.showNewDeviceModal = showNewDeviceModal;
-	this.showDeviceActionSheet = showDeviceActionSheet;
+	this.showDeviceEditActionSheet = showDeviceEditActionSheet;
+	this.showDeviceCmdActionSheet = showDeviceCmdActionSheet;
 	this.cmdArm = cmdArm;
 	this.cmdDisarm = cmdDisarm;
 	this.cmdState = cmdState;
 	this.lastHistoryLine = lastHistoryLine;
-	
+
 
 	function getMainPicture(device) {
 		return DevicePictures.getMainPicture(device);
 	}
 
 
-	function showDeviceActionSheet(device) {
-		DeviceActions.showActionSheet(device);
+	function showDeviceEditActionSheet(device) {
+		DeviceActions.showEditActionSheet(device);
+	}
+
+
+	function showDeviceCmdActionSheet(device) {
+		DeviceActions.showCmdActionSheet(device);
 	}
 
 

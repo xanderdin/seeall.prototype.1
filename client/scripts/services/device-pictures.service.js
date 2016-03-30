@@ -22,20 +22,21 @@ function DevicePictures() {
 
 		var isArmed = false;
 
-		for (i = 0; i < device.zones.length; i++) {
-			if (device.zones[i].isArmed === true) {
-				isArmed = true;
-				break;
+		if (device.zones) {
+			for (i = 0; i < device.zones.length; i++) {
+				if (device.zones[i].isArmed === true) {
+					isArmed = true;
+					break;
+				}
 			}
-		}
-
+        }
 		// if (isArmed === undefined) {
 		// 	return 'question.svg';
 		// } else
 		if (isArmed === true) {
 			return 'armed.svg';
 		}
-		
+
 		return 'disarmed.svg';
 	}
 

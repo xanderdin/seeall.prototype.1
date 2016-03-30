@@ -4,25 +4,23 @@ angular
 
 
 function DeviceActions($rootScope, $ionicActionSheet, $ionicPopup) {
-	
-	this.showActionSheet = showActionSheet;
+
+	this.showEditActionSheet = showEditActionSheet;
+	this.showCmdActionSheet = showCmdActionSheet;
 	this.cmdArm = cmdArm;
 	this.cmdDisarm = cmdDisarm;
 	this.cmdState = cmdState;
 	this.showEditPopup = showEditPopup;
 	this.showRemovePopup = showRemovePopup;
 
-	function showActionSheet(device) {
-		
+	function showEditActionSheet(device) {
+
 		var title;
 		var buttons;
 
 		//if (device.isActivated === true) {
 			title = device.name ? device.name : device._id;
 			buttons = [
-				{ text: 'Arm' },
-				{ text: 'Disarm' },
-				{ text: 'State' },
 				{ text: 'Edit' },
 				{ text: 'Deactivate' }
 			];
@@ -31,12 +29,50 @@ function DeviceActions($rootScope, $ionicActionSheet, $ionicPopup) {
 		// 		{ text: 'Activate' }
 		// 	];
 		// }
-		
+
 		$ionicActionSheet.show({
 			titleText: title,
 			buttons: buttons,
-			//titleText: 'Actions',
 			destructiveText: 'Remove',
+			cancelText: 'Cancel',
+			buttonClicked: function(index) {
+				switch (index) {
+					case 0:
+						showEditPopup(device);
+						break;
+				}
+				return true;
+			},
+			destructiveButtonClicked: function() {
+				showRemovePopup(device);
+				return true;
+			}
+		});
+	}
+
+
+	function showCmdActionSheet(device) {
+
+		var title;
+		var buttons;
+
+		//if (device.isActivated === true) {
+			title = device.name ? device.name : device._id;
+			buttons = [
+				{ text: 'Arm' },
+				{ text: 'Disarm' },
+				{ text: 'State' }
+			];
+		// } else {
+		// 	buttons = [
+		// 		{ text: 'Activate' }
+		// 	];
+		// }
+
+		$ionicActionSheet.show({
+			titleText: title,
+			buttons: buttons,
+			//destructiveText: 'Remove',
 			cancelText: 'Cancel',
 			buttonClicked: function(index) {
 				switch (index) {
@@ -49,17 +85,10 @@ function DeviceActions($rootScope, $ionicActionSheet, $ionicPopup) {
 					case 2:
 						cmdState(device);
 						break;
-					case 3:
-						showEditPopup(device);
-						break;
 				}
 				return true;
-			},
-			destructiveButtonClicked: function() {
-				showRemovePopup(device);
-				return true;
 			}
-		});		
+		});
 	}
 
 
@@ -90,7 +119,7 @@ function DeviceActions($rootScope, $ionicActionSheet, $ionicPopup) {
 
 
 	function showEditPopup(device) {
-		
+
 		this._scope = $rootScope.$new();
 		this._scope.newName = device.name;
 
@@ -109,10 +138,10 @@ function DeviceActions($rootScope, $ionicActionSheet, $ionicPopup) {
 				}
 			]
 		}).then(function(result) {
-			
+
 			this._scope.$destroy();
 
-			if (result && result !== device.name) {
+			if (result !== undefined && result !== device.name) {
 				Meteor.call('updateDevice', { _id: device._id, name: result });
 			}
 		});

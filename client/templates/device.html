@@ -1,36 +1,44 @@
 <ion-view view-title="{{device.data.name ? device.data.name : device.data._id}}">
 
 	<ion-nav-buttons side="right">
-		<button ng-click="device.showDeviceActionSheet()" class="button button-clear button-icon ion-android-more-vertical"></button>
+		<button ng-click="device.showDeviceEditActionSheet()" class="button button-clear button-icon ion-ios-compose-outline"></button>
 	</ion-nav-buttons>
 
 	<ion-pane>
 
 		<ion-tabs>
-			
+
 			<ion-tab title="Panel">
 				<ion-nav-view name="device-panel">
 					<ion-content>
 
-						<div class="list" style="display: flex; flex-flow: row wrap;">
-							<div class="item item-thumbnail-left item-text-wrap" style="flex: auto;">
-								<img src="{{device.getMainPicture()}}" ng-click="device.showDeviceActionSheet()" class="button button-outline">
-								<h2>{{device.data._id}}</h2>
-								<p>{{device.lastHistoryLine.info}}</p>
-								<!-- <div>
-									<button class="button button-clear button-positive">Arm</button>
-									<button class="button button-clear button-positive">Disarm</button>
-									<button class="button button-clear button-positive">State</button>
-								</div> -->
-							</div>
-							<div class="item item-text-wrap" style="flex: auto;">
-								<div class="row" style="max-width: 500px;">
-									<div class="col">Link:</div><div class="col">OK</div>
-									<div class="col">Tamper:</div><div class="col">OK</div>
+						<div class="device-info-pads list">
+							<div class="device-info-pad list card" style="margin: 4px;">
+
+								<div class="item item-thumbnail-left item-text-wrap">
+									<img src="{{device.getMainPicture()}}" ng-click="device.showDeviceCmdActionSheet()" class="button button-outline">
+									<h2>{{device.data._id}}</h2>
+									<p>{{device.lastHistoryLine.info}}</p>
 								</div>
-								<div class="row" style="max-width: 500px;">
-									<div class="col">Power:</div><div class="col">OK</div>
-									<div class="col">Battery:</div><div class="col">OK</div>
+
+								<div class="item item-divider">
+									<button class="button button-clear button-small button-positive" ng-click="device.cmdArm()">Arm</button>
+									<button class="button button-clear button-small button-positive" ng-click="device.cmdDisarm()">Disarm</button>
+									<button class="button button-clear button-small button-positive" ng-click="device.cmdState()">State</button>
+								</div>
+
+							</div>
+
+							<div class="device-info-pad list card" style="margin: 4px;">
+								<div class="item item-text-wrap">
+									<div class="row" style="max-width: 500px;">
+										<div class="col">Link:</div><div class="col">OK</div>
+										<div class="col">Tamper:</div><div class="col">OK</div>
+									</div>
+									<div class="row" style="max-width: 500px;">
+										<div class="col">Power:</div><div class="col">OK</div>
+										<div class="col">Battery:</div><div class="col">OK</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -85,22 +93,28 @@
 						</div>
  -->
 
-						<div class="list" style="display: flex; flex-flow: row wrap; justify-content: center;">
-							<div ng-repeat="zone in device.data.zones" class="list card" style="flex: 1 1 150px; margin: 4px; max-width: 180px;">
+						<div class="device-zones-pad list">
+							<div ng-repeat="zone in device.data.zones" class="device-zone-card list card" style="margin: 4px;">
 
 								<div class="item item-divider bar bar-header">
-									<button class="button button-clear button-dark">{{zone._id}}</button>
-									<h1 class="title">{{zone.name}}</h1>
-									<button class="button icon ion-android-more-vertical" ng-click="device.showZoneActionSheet(zone)"></button>
+									<span class="device-zone-num">{{zone._id}}</span>
+									<!--<button class="button button-clear button-dark">{{zone._id}}</button>-->
+									<h2 class="title">{{zone.name ? zone.name : zone._id}}</h2>
+									<button class="button icon ion-ios-compose-outline" ng-click="device.showZoneEditActionSheet(zone)"></button>
 								</div>
 
 								<!-- <div class="item item-thumbnail-left item-text-wrap"> -->
 								<div class="item">
-
-									<img src="{{device.getZoneMainPicture(zone)}}" style="width: 30px; height: 30px;" ng-click="device.showZoneInfoPopup(zone)">
-									<!-- <h2>{{device.name ? device.name : device._id}}</h2> -->
+									<img src="{{device.getZoneMainPicture(zone)}}" ng-click="device.showZoneCmdActionSheet(zone)" class="button button-clear button-small">
+									<!--<h2 class="title">{{zone._id}}</h2>-->
 									<!-- <p>Some data here</p> -->
-									
+									<button ng-click="device.showZoneInfoPopup(zone)" class="device-zone-info button button-clear icon icon-accessory ion-more">
+									</button>
+								</div>
+
+								<div class="item item-divider">
+									<button class="button button-clear button-small button-positive" ng-click="device.zoneCmdArm(zone)">Arm</button>
+									<button class="button button-clear button-small button-positive" ng-click="device.zoneCmdDisarm(zone)">Disarm</button>
 								</div>
 
 							</div>
@@ -109,18 +123,22 @@
 					</ion-content>
 				</ion-nav-view>
 			</ion-tab>
-			
+
 			<ion-tab title="History">
 				<ion-nav-view name="device-history">
-					<ion-content>
+					<ion-content delegate-handle="historyScroll">
 						<!-- <ion-list ng-repeat="line in device.history">
 							<ion-item>{{line.at}}: {{line.info}}</ion-item>
 						</ion-list> -->
-						<ion-item collection-repeat="line in device.history">{{line.at}}: {{line.info}}</ion-item>
+						<ion-item class="item-history" collection-repeat="line in device.history" item-height="53px" item-width="100%">
+							<span class="event-time">{{ line.at | date : "HH:mm:ss" }}</span>
+							<span class="event-info">{{line.info}}</span>
+							<span class="event-date">{{line.at | date : "yyyy-MM-dd" }}</span>
+						</ion-item>
 					</ion-content>
 				</ion-nav-view>
 			</ion-tab>
-		
+
 			<ion-tab title="Users">
 				<ion-nav-view name="device-users">
 					<ion-content>
