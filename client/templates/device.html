@@ -12,8 +12,10 @@
 				<ion-nav-view name="device-panel">
 					<ion-content>
 
-						<div class="device-info-pads list">
-							<div class="device-info-pad list card" style="margin: 4px;">
+						<!--<div class="device-info-pads list">-->
+						<div class="list">
+							<!--<div class="device-info-pad list card" style="margin: 4px;">-->
+							<!--<div class="list card">-->
 
 								<!--<div class="item item-thumbnail-left item-text-wrap">-->
 								<div class="item item-icon-left item-text-wrap">
@@ -30,9 +32,10 @@
 									<button class="button button-clear button-small button-positive" ng-click="device.cmdState()">State</button>
 								</div>
 
-							</div>
+							<!--</div>-->
 
-							<div class="device-info-pad list card" style="margin: 4px;">
+							<!--<div class="device-info-pad list card" style="margin: 4px;">-->
+							<!--<div class="list card">-->
 								<div class="item item-text-wrap">
 									<div class="row" style="max-width: 500px;">
 										<div class="col">Link:</div><div class="col">OK</div>
@@ -43,7 +46,7 @@
 										<div class="col">Battery:</div><div class="col">OK</div>
 									</div>
 								</div>
-							</div>
+							<!--</div>-->
 						</div>
 
 <!-- 						<div class="row">
@@ -96,19 +99,29 @@
 						</div>
  -->
 
-						<div class="device-zones-pad list">
-							<div ng-repeat="zone in device.data.zones" class="device-zone-card list card" style="margin: 4px;">
+					</ion-content>
+				</ion-nav-view>
+			</ion-tab>
 
-								<div class="item item-divider bar bar-header">
+			<ion-tab title="Zones">
+				<ion-nav-view name="device-zones">
+					<ion-content>
+						<!--<div class="device-zones-pad list">-->
+						<ion-list>
+							<!--<div ng-repeat="zone in device.data.zones" class="device-zone-card list card" style="margin: 4px;">-->
+							<!--<div ng-repeat="zone in device.data.zones" class="list card">-->
+							<ion-item ng-repeat="zone in device.data.zones" class="item item-icon-left">
+
+								<!--<div class="item item-divider bar bar-header">-->
 									<!--<span class="device-zone-num">{{zone._id}}</span>-->
 									<!--<button class="button button-clear button-dark">{{zone._id}}</button>-->
 									<!--<h2 class="title">{{zone.name ? zone.name : zone._id}}</h2>-->
 									<h2 class="title">{{zone._id}}</h2>
-									<button class="button icon ion-ios-gear-outline" ng-click="device.showZoneEditActionSheet(zone)"></button>
-								</div>
+								<!--	<button class="button icon ion-ios-gear-outline" ng-click="device.showZoneEditActionSheet(zone)"></button>-->
+								<!--</div>-->
 
 								<!-- <div class="item item-thumbnail-left item-text-wrap"> -->
-								<div class="item item-icon-left">
+								<!--<div class="item item-icon-left">-->
 									<!--<span class="device-zone-num">{{zone._id}}</span>-->
 									<i class="assertive icon ion-locked" ng-if="zone.isArmed"></i>
 									<i class="balanced icon ion-unlocked" ng-if="!zone.isArmed"></i>
@@ -117,15 +130,15 @@
 									<!-- <p>Some data here</p> -->
 									<!--<button ng-click="device.showZoneInfoPopup(zone)" class="device-zone-info button button-clear icon icon-accessory ion-more">-->
 									<!--</button>-->
-								</div>
+								<!--</div>-->
+								<!---->
+								<!--<div class="item item-divider">-->
+								<!--	<button class="button button-clear button-small button-positive" ng-click="device.zoneCmdArm(zone)">Arm</button>-->
+								<!--	<button class="button button-clear button-small button-positive" ng-click="device.zoneCmdDisarm(zone)">Disarm</button>-->
+								<!--</div>-->
 
-								<div class="item item-divider">
-									<button class="button button-clear button-small button-positive" ng-click="device.zoneCmdArm(zone)">Arm</button>
-									<button class="button button-clear button-small button-positive" ng-click="device.zoneCmdDisarm(zone)">Disarm</button>
-								</div>
-
-							</div>
-						</div>
+							</ion-item>
+						</ion-list>
 
 					</ion-content>
 				</ion-nav-view>
