@@ -1,77 +1,47 @@
 angular
-	.module('SeeAll')
-	.controller('DevicesCtrl', DevicesCtrl);
+    .module('SeeAll')
+    .controller('DevicesCtrl', DevicesCtrl);
 
 
-function DevicesCtrl($scope, $reactive, NewDevice,
-					 DevicePictures, DeviceActions, DeviceStates) {
+function DevicesCtrl($scope, $reactive, DevicesService, NewDevice,
+                     DeviceStates, DeviceActions) {
 
-	$reactive(this).attach($scope);
-
-	this.getMainPicture = getMainPicture;
-	this.showNewDeviceModal = showNewDeviceModal;
-	this.showDeviceEditActionSheet = showDeviceEditActionSheet;
-	this.showDeviceCmdActionSheet = showDeviceCmdActionSheet;
-	this.cmdArm = cmdArm;
-	this.cmdDisarm = cmdDisarm;
-	this.cmdState = cmdState;
-	this.lastHistoryLine = lastHistoryLine;
-	this.getIsArmed = getIsArmed;
+    $reactive(this).attach($scope);
 
 
-	function getMainPicture(device) {
-		return DevicePictures.getMainPicture(device);
-	}
+    this.helpers({
+        all: function() {
+            return DevicesService.all();
+        }
+    });
 
 
-	function showDeviceEditActionSheet(device) {
-		DeviceActions.showEditActionSheet(device);
-	}
+    this.showNewDeviceModal = function() {
+        NewDevice.showModal();
+    };
 
 
-	function showDeviceCmdActionSheet(device) {
-		DeviceActions.showCmdActionSheet(device);
-	}
-
-
-	function showNewDeviceModal() {
-		NewDevice.showModal();
-	}
-
-
-	function cmdArm(device) {
-		DeviceActions.cmdArm(device);
-	}
-
-
-	function cmdDisarm(device) {
-		DeviceActions.cmdDisarm(device);
-	}
-
-
-	function cmdState(device) {
-		DeviceActions.cmdState(device);
-	}
-
-
-	function lastHistoryLine(device) {
-		return History.findOne({ deviceId: device._id }, { sort: { at: -1 }});
-	}
-
-
-	function getIsArmed(device) {
+    this.deviceIsArmed = function(device) {
         return DeviceStates.getIsArmed(device);
-    }
+    };
 
 
-	this.helpers({
+    this.lastDeviceHistoryLineInfo = function(device) {
+        return DevicesService.lastDeviceHistoryLine(device).info;
+    };
 
-		list: function() {
-			return Devices.find();
-		},
 
-		count: function() {
-			return Devices.find().count();
-		}
-	});
+    this.cmdArm = function(device) {
+        DeviceActions.cmdArm(device);
+    };
+
+
+    this.cmdDisarm = function(device) {
+        DeviceActions.cmdDisarm(device);
+    };
+
+
+    this.cmdState = function(device) {
+        DeviceActions.cmdState(device);
+    };
 }

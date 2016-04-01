@@ -3,7 +3,8 @@ angular
 	.service('DeviceActions', DeviceActions);
 
 
-function DeviceActions($rootScope, $ionicActionSheet, $ionicPopup) {
+function DeviceActions($rootScope, $ionicActionSheet, $ionicPopup,
+					   $state, $ionicHistory) {
 
 	this.showEditActionSheet = showEditActionSheet;
 	this.showCmdActionSheet = showCmdActionSheet;
@@ -154,7 +155,12 @@ function DeviceActions($rootScope, $ionicActionSheet, $ionicPopup) {
 			template: 'Remove device?'
 		}).then(function(result) {
 			if (result) {
-				Meteor.call('removeDevice', device._id);
+				Meteor.call('removeDevice',	device._id,
+					function(error, result) {
+						$ionicHistory.currentView($ionicHistory.backView());
+						$state.go('app.about', null, { location: 'replace' });
+					}
+				);
 			}
 		});
 	}

@@ -4,7 +4,7 @@ angular
 
 
 function config($stateProvider, $urlRouterProvider) {
-	
+
 	$stateProvider
 
 		.state('app', {
@@ -25,7 +25,9 @@ function config($stateProvider, $urlRouterProvider) {
 		})
 
 		.state('app.device', {
-			url: '/devices/:devId',
+			//url: '/devices/:devId',
+			url: '/device/:devId',
+			//url: '/:devId',
 			views: {
 				'content-area': {
 					templateUrl: 'client/templates/device.html',
@@ -64,5 +66,5 @@ function config($stateProvider, $urlRouterProvider) {
 			}
 		});
 
-	$urlRouterProvider.otherwise('/app/devices');
+	$urlRouterProvider.otherwise('/app/about');
 }

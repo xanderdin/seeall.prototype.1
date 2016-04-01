@@ -3,7 +3,7 @@ angular
 	.controller('NewDeviceCtrl', NewDeviceCtrl);
 
 
-function NewDeviceCtrl($scope, $reactive, $state, NewDevice) {
+function NewDeviceCtrl($scope, $reactive, $state, $ionicHistory, NewDevice) {
 
 	$reactive(this).attach($scope);
 
@@ -23,6 +23,12 @@ function NewDeviceCtrl($scope, $reactive, $state, NewDevice) {
 		Meteor.call('newDevice', {
 			_id: this.gid,
 			name: this.name
+		},
+		function(error, result) {
+			if (result) {
+				$ionicHistory.currentView($ionicHistory.backView());
+                $state.go('app.device', { devId: result }, { location: 'replace' });
+            }
 		});
 	}
 }

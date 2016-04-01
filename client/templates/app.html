@@ -6,36 +6,57 @@
 		<ion-header-bar class="bar-stable">
 			<h1 class="title">Menu</h1>
 		</ion-header-bar>
-	
+
 		<ion-content>
 			<ion-list>
-				<ion-item menu-close class="item-icon-left" href="#" ng-click="app.showNewDeviceModal()">
+
+				<ion-item class="item-divider">
+					Devices
+				</ion-item>
+
+				<ion-item menu-close class="item-icon-left" href="" ng-click="app.showNewDeviceModal()">
 					<i class="icon ion-plus"></i>
 					Add Device
 				</ion-item>
-				<ion-item menu-close class="item-icon-left" href="#/app/devices">
-					<i class="icon ion-ios-list-outline"></i>
-					Devices List
+
+				<ion-item menu-close class="item-icon-left" href="#/app/devices" ng-if="app.devices.length > 1">
+					<i class="icon ion-grid"></i>
+					All Devices
 				</ion-item>
+
+				<ion-item menu-close class="item-icon-left" ng-repeat="device in app.devices" href="#/app/device/{{device._id}}">
+					<i class="assertive icon ion-locked" ng-if="app.deviceIsArmed(device)"></i>
+					<i class="balanced icon ion-unlocked" ng-if="!app.deviceIsArmed(device)"></i>
+					{{device.name ? device.name : device._id}}
+				</ion-item>
+
+				<ion-item class="item-divider">
+					App
+				</ion-item>
+
 				<ion-item menu-close class="item-icon-left" href="#/app/settings">
 					<i class="icon ion-settings"></i>
 					Settings
 				</ion-item>
+
 				<ion-item menu-close class="item-icon-left" href="#/app/logout">
 					<i class="icon ion-log-out"></i>
 					Logout
 				</ion-item>
+
 				<ion-item menu-close class="item-icon-left" href="#/app/help">
 					<i class="icon ion-help"></i>
 					Help
 				</ion-item>
+
 				<ion-item menu-close class="item-icon-left" href="#/app/about">
 					<i class="icon ion-information"></i>
 					About
 				</ion-item>
+
 			</ion-list>
 		</ion-content>
-	
+
 	</ion-side-menu>
 
 	<ion-side-menu-content>
@@ -54,31 +75,31 @@
 	</ion-side-menu-content>
 
 
-	<ion-side-menu side="right" expose-aside-when="large">
-		<ion-header-bar class="bar-stable">
-			<h1 class="title">News</h1>
-		</ion-header-bar>
-
-		<ion-content>
-			<div class="card">
-				<div class="item item-text-wrap">
-					<h2 class="title">New version is available</h2>
-					<p>Asf zxcv aqwer asfdzcv adfqwer. Ffda eqr.</p>
-				</div>
-			</div>
-			<div class="card">
-				<div class="item item-text-wrap">
-					<h2 class="title">New version is available</h2>
-					<p>Asf zxcv aqwer asfdzcv adfqwer. Ffda eqr.</p>
-				</div>
-			</div>
-			<div class="card">
-				<div class="item item-text-wrap">
-					<h2 class="title">New version is available</h2>
-					<p>Asf zxcv aqwer asfdzcv adfqwer. Ffda eqr.</p>
-				</div>
-			</div>
-		</ion-content>
-	</ion-side-menu>
+	<!--<ion-side-menu side="right" expose-aside-when="large">-->
+	<!--	<ion-header-bar class="bar-stable">-->
+	<!--		<h1 class="title">News</h1>-->
+	<!--	</ion-header-bar>-->
+	<!---->
+	<!--	<ion-content>-->
+	<!--		<div class="card">-->
+	<!--			<div class="item item-text-wrap">-->
+	<!--				<h2 class="title">New version is available</h2>-->
+	<!--				<p>Asf zxcv aqwer asfdzcv adfqwer. Ffda eqr.</p>-->
+	<!--			</div>-->
+	<!--		</div>-->
+	<!--		<div class="card">-->
+	<!--			<div class="item item-text-wrap">-->
+	<!--				<h2 class="title">New version is available</h2>-->
+	<!--				<p>Asf zxcv aqwer asfdzcv adfqwer. Ffda eqr.</p>-->
+	<!--			</div>-->
+	<!--		</div>-->
+	<!--		<div class="card">-->
+	<!--			<div class="item item-text-wrap">-->
+	<!--				<h2 class="title">New version is available</h2>-->
+	<!--				<p>Asf zxcv aqwer asfdzcv adfqwer. Ffda eqr.</p>-->
+	<!--			</div>-->
+	<!--		</div>-->
+	<!--	</ion-content>-->
+	<!--</ion-side-menu>-->
 
 </ion-side-menus>

@@ -4,8 +4,7 @@ angular
 
 
 function DeviceCtrl($scope, $reactive, $stateParams, $ionicScrollDelegate,
-					DevicePictures, DeviceActions, DeviceStates,
-					ZonePictures, ZoneActions, ZoneInfo) {
+					DeviceActions, DeviceStates, ZoneActions, ZoneInfo) {
 
 	$reactive(this).attach($scope);
 
@@ -32,8 +31,6 @@ function DeviceCtrl($scope, $reactive, $stateParams, $ionicScrollDelegate,
 	//});
 
 
-	this.getMainPicture = getMainPicture;
-	this.getZoneMainPicture = getZoneMainPicture;
 	this.showDeviceEditActionSheet = showDeviceEditActionSheet;
 	this.showDeviceCmdActionSheet = showDeviceCmdActionSheet;
 	this.showZoneEditActionSheet = showZoneEditActionSheet;
@@ -45,16 +42,6 @@ function DeviceCtrl($scope, $reactive, $stateParams, $ionicScrollDelegate,
 	this.zoneCmdArm = zoneCmdArm;
 	this.zoneCmdDisarm = zoneCmdDisarm;
 	this.getIsArmed = getIsArmed;
-
-
-	function getMainPicture() {
-		return DevicePictures.getMainPicture(this.data);
-	}
-
-
-	function getZoneMainPicture(zone) {
-		return ZonePictures.getMainPicture(this.data, zone);
-	}
 
 
 	function showDeviceEditActionSheet() {
