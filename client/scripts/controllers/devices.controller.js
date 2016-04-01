@@ -3,7 +3,8 @@ angular
 	.controller('DevicesCtrl', DevicesCtrl);
 
 
-function DevicesCtrl($scope, $reactive, NewDevice, DevicePictures, DeviceActions) {
+function DevicesCtrl($scope, $reactive, NewDevice,
+					 DevicePictures, DeviceActions, DeviceStates) {
 
 	$reactive(this).attach($scope);
 
@@ -15,6 +16,7 @@ function DevicesCtrl($scope, $reactive, NewDevice, DevicePictures, DeviceActions
 	this.cmdDisarm = cmdDisarm;
 	this.cmdState = cmdState;
 	this.lastHistoryLine = lastHistoryLine;
+	this.getIsArmed = getIsArmed;
 
 
 	function getMainPicture(device) {
@@ -55,6 +57,11 @@ function DevicesCtrl($scope, $reactive, NewDevice, DevicePictures, DeviceActions
 	function lastHistoryLine(device) {
 		return History.findOne({ deviceId: device._id }, { sort: { at: -1 }});
 	}
+
+
+	function getIsArmed(device) {
+        return DeviceStates.getIsArmed(device);
+    }
 
 
 	this.helpers({

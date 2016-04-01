@@ -1,7 +1,7 @@
 <ion-view view-title="{{device.data.name ? device.data.name : device.data._id}}">
 
 	<ion-nav-buttons side="right">
-		<button ng-click="device.showDeviceEditActionSheet()" class="button button-clear button-icon ion-ios-compose-outline"></button>
+		<button ng-click="device.showDeviceEditActionSheet()" class="button button-clear button-icon ion-ios-gear-outline"></button>
 	</ion-nav-buttons>
 
 	<ion-pane>
@@ -15,8 +15,11 @@
 						<div class="device-info-pads list">
 							<div class="device-info-pad list card" style="margin: 4px;">
 
-								<div class="item item-thumbnail-left item-text-wrap">
-									<img src="{{device.getMainPicture()}}" ng-click="device.showDeviceCmdActionSheet()" class="button button-outline">
+								<!--<div class="item item-thumbnail-left item-text-wrap">-->
+								<div class="item item-icon-left item-text-wrap">
+									<!--<img src="{{device.getMainPicture()}}" ng-click="device.showDeviceCmdActionSheet()" class="button button-outline">-->
+									<i class="assertive icon ion-locked" ng-if="device.getIsArmed()"></i>
+									<i class="balanced icon ion-unlocked" ng-if="!device.getIsArmed()"></i>
 									<h2>{{device.data._id}}</h2>
 									<p>{{device.lastHistoryLine.info}}</p>
 								</div>
@@ -97,19 +100,23 @@
 							<div ng-repeat="zone in device.data.zones" class="device-zone-card list card" style="margin: 4px;">
 
 								<div class="item item-divider bar bar-header">
-									<span class="device-zone-num">{{zone._id}}</span>
+									<!--<span class="device-zone-num">{{zone._id}}</span>-->
 									<!--<button class="button button-clear button-dark">{{zone._id}}</button>-->
-									<h2 class="title">{{zone.name ? zone.name : zone._id}}</h2>
-									<button class="button icon ion-ios-compose-outline" ng-click="device.showZoneEditActionSheet(zone)"></button>
+									<!--<h2 class="title">{{zone.name ? zone.name : zone._id}}</h2>-->
+									<h2 class="title">{{zone._id}}</h2>
+									<button class="button icon ion-ios-gear-outline" ng-click="device.showZoneEditActionSheet(zone)"></button>
 								</div>
 
 								<!-- <div class="item item-thumbnail-left item-text-wrap"> -->
-								<div class="item">
-									<img src="{{device.getZoneMainPicture(zone)}}" ng-click="device.showZoneCmdActionSheet(zone)" class="button button-clear button-small">
-									<!--<h2 class="title">{{zone._id}}</h2>-->
+								<div class="item item-icon-left">
+									<!--<span class="device-zone-num">{{zone._id}}</span>-->
+									<i class="assertive icon ion-locked" ng-if="zone.isArmed"></i>
+									<i class="balanced icon ion-unlocked" ng-if="!zone.isArmed"></i>
+									<!--<img src="{{device.getZoneMainPicture(zone)}}" ng-click="device.showZoneCmdActionSheet(zone)" class="button button-clear button-small">-->
+									<h2 class="title">{{zone.name}}&nbsp;</h2>
 									<!-- <p>Some data here</p> -->
-									<button ng-click="device.showZoneInfoPopup(zone)" class="device-zone-info button button-clear icon icon-accessory ion-more">
-									</button>
+									<!--<button ng-click="device.showZoneInfoPopup(zone)" class="device-zone-info button button-clear icon icon-accessory ion-more">-->
+									<!--</button>-->
 								</div>
 
 								<div class="item item-divider">

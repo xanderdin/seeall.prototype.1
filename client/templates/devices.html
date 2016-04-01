@@ -5,27 +5,35 @@
 	</ion-nav-buttons>
 
 	<ion-content>
-		<div class="list" ng-if="devices.count > 0" style="display: flex; flex-flow: row wrap; justify-content: center;">
+		<!--<div class="list" ng-if="devices.count > 0" style="display: flex; flex-flow: row wrap; justify-content: center;">-->
+		<div class="list devices-list" ng-if="devices.count > 0">
 		<!-- <ion-list> -->
 			<!-- <ion-item ng-repeat="device in devices.list" href="#/app/devices/{{device._id}}" class="item-remove-animate item-thumbnail-left item-icon-right item-text-wrap"> -->
-			<div ng-repeat="device in devices.list" class="list card" style="flex: 1 1 400px; margin: 4px; max-width: 400px;">
+			<!--<div ng-repeat="device in devices.list" class="list card" style="flex: 1 1 400px; margin: 4px; max-width: 400px;">-->
+			<div ng-repeat="device in devices.list" class="list card devices-list-card" style="margin: 4px;">
 
 				<div class="item item-divider bar bar-header">
 					<h1 class="title">{{device.name ? device.name : device._id}}</h1>
-					<button class="button icon ion-ios-compose-outline" ng-click="devices.showDeviceEditActionSheet(device)"></button>
+					<!--<h1 class="title">{{device._id}}</h1>-->
+					<button class="button icon ion-ios-gear-outline" ng-click="devices.showDeviceEditActionSheet(device)"></button>
 				</div>
 
-				<div class="item item-thumbnail-left item-icon-right item-text-wrap">
+				<!--<div class="item item-thumbnail-left item-button-right">-->
+				<a class="item item-icon-left item-icon-right" href="#/app/devices/{{device._id}}">
 
-					<img src="{{devices.getMainPicture(device)}}" class="button button-outline" ng-click="devices.showDeviceCmdActionSheet(device)">
-					<h2 class="title">{{device._id}}</h2>
-					<p>{{devices.lastHistoryLine(device).info}}</p>
+					<!--<img src="{{devices.getMainPicture(device)}}" ng-click="devices.showDeviceCmdActionSheet(device)">-->
+					<!--<img src="{{devices.getMainPicture(device)}}" ng-click="devices.showDeviceCmdActionSheet(device)">-->
+					<!--<button class="button-assertive icon ion-locked button button-outline" ng-if="devices.getIsArmed(device)" ng-click="devices.cmdDisarm(device)"></button>-->
+					<!--<button class="button-balanced icon ion-unlocked button button-outline" ng-if="!devices.getIsArmed(device)" ng-click="devices.cmdArm(device)"></button>-->
+					<i class="assertive icon ion-locked" ng-if="devices.getIsArmed(device)"></i>
+					<i class="balanced icon ion-unlocked" ng-if="!devices.getIsArmed(device)"></i>
+					<h2 class="title">GID:&nbsp;{{device._id}}</h2>
+					<p>{{devices.lastHistoryLine(device).info}}&nbsp;</p>
 
-					<a href="#/app/devices/{{device._id}}" class="button-clear">
+					<!--<a href="#/app/devices/{{device._id}}" class="button button-clear icon ion-chevron-right icon-accessory">-->
 						<i class="icon ion-chevron-right icon-accessory"></i>
-					</a>
-
-				</div>
+					<!--</a>-->
+				</a>
 
 				<div class="item item-divider">
 					<button class="button button-clear button-small button-positive" ng-click="devices.cmdArm(device)">Arm</button>

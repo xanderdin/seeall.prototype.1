@@ -1,25 +1,76 @@
+@mixin flexbox() {
+    //display: -webkit-box;
+    //display: -moz-box;
+    //display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+@mixin flex($values) {
+    //-webkit-box-flex: $values;
+    //-moz-box-flex:  $values;
+    -webkit-flex:  $values;
+    //-ms-flex:  $values;
+    flex:  $values;
+}
+
+@mixin order($val) {
+    //-webkit-box-ordinal-group: $val;
+    //-moz-box-ordinal-group: $val;
+    //-ms-flex-order: $val;
+    -webkit-order: $val;
+    order: $val;
+}
+
+@mixin justify-content($val) {
+    -webkit-justify-content: $val;
+    justify-content: $val;
+}
+
+@mixin flex-flow($values) {
+    //-webkit-box-flex-flow: $values;
+    //-moz-box-flex-flow: $values;
+    -webkit-flex-flow: $values;
+    //-ms-flex-flow: $values;
+    flex-flow: $values;
+}
+
+
 .device-info-pads {
 
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
+    //display: flex;
+    //flex-flow: row wrap;
+    //justify-content: center;
+    @include flexbox();
+    @include flex-flow(row wrap);
+    @include justify-content(center);
 
     .device-info-pad {
-        flex: auto;
+        //flex: auto;
+        @include flex(auto);
         //margin: 4px;
     }
 }
 
 .device-zones-pad {
 
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
+    //display: -webkit-flex;
+    //display: flex;
+    //flex-flow: row wrap;
+    //-webkit-justify-content: center;
+    //justify-content: center;
+
+    @include flexbox();
+    @include flex-flow(row wrap);
+    @include justify-content(center);
 
     .device-zone-card {
-        flex: 1 1 150px;
+        //flex: 1 1 150px;
+        //@include flex(1 1 150px);
+        @include flex(auto);
         //margin: 4px;
-        max-width: 180px;
+        //max-width: 180px;
+        min-width: 120px;
 
         .device-zone-info {
             position: absolute;
