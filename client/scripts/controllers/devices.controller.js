@@ -3,17 +3,31 @@ angular
     .controller('DevicesCtrl', DevicesCtrl);
 
 
-function DevicesCtrl($scope, $reactive, DevicesService, NewDevice,
-                     DeviceStates, DeviceActions) {
+function DevicesCtrl($scope, $reactive, $state, $ionicHistory,
+                     DevicesFunctions, NewDevice, DeviceActions) {
 
     $reactive(this).attach($scope);
 
 
     this.helpers({
         all: function() {
-            return DevicesService.all();
+            return DevicesFunctions.getAllDevices();
         }
     });
+
+
+    this.getDeviceMainIconClass = getDeviceMainIconClass;
+    this.getDeviceSecondaryIconClass = getDeivceSecondaryIconClass;
+
+
+    function getDeviceMainIconClass(device) {
+        return DevicesFunctions.getMainIconClass(device);
+    }
+
+
+    function getDeivceSecondaryIconClass(device) {
+        return DevicesFunctions.getSecondaryIconClass(device);
+    }
 
 
     this.showNewDeviceModal = function() {
@@ -22,12 +36,12 @@ function DevicesCtrl($scope, $reactive, DevicesService, NewDevice,
 
 
     this.deviceIsArmed = function(device) {
-        return DeviceStates.getIsArmed(device);
+        return DevicesFunctions.isArmed(device);
     };
 
 
-    this.lastDeviceHistoryLineInfo = function(device) {
-        return DevicesService.lastDeviceHistoryLine(device).info;
+    this.lastHistoryRecord = function(device) {
+        return DevicesFunctions.getLastHistoryRecord(device);
     };
 
 
@@ -44,4 +58,15 @@ function DevicesCtrl($scope, $reactive, DevicesService, NewDevice,
     this.cmdState = function(device) {
         DeviceActions.cmdState(device);
     };
+
+
+    this.goToDevice = function(device) {
+        $ionicHistory.currentView($ionicHistory.backView());
+        $state.go('app.device', { devId: device._id }, { location: 'replace' });
+    };
+
+
+    this.showEditActionSheet = function(device) {
+        DeviceActions.showEditActionSheet(device);
+    }
 }

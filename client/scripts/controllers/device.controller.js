@@ -4,7 +4,8 @@ angular
 
 
 function DeviceCtrl($scope, $reactive, $stateParams, $ionicScrollDelegate,
-					DeviceActions, DeviceStates, ZoneActions, ZoneInfo) {
+					DeviceActions, DevicesFunctions, ZoneActions, ZoneInfo,
+					ZonesFunctions) {
 
 	$reactive(this).attach($scope);
 
@@ -19,7 +20,7 @@ function DeviceCtrl($scope, $reactive, $stateParams, $ionicScrollDelegate,
 			return History.find({ deviceId: devId }, { sort: { at:  -1 }});
 		},
 
-		lastHistoryLine: function() {
+		lastHistoryRecord: function() {
 			return History.findOne({ deviceId: devId }, { sort: { at: -1 }});
 		}
 	});
@@ -42,6 +43,10 @@ function DeviceCtrl($scope, $reactive, $stateParams, $ionicScrollDelegate,
 	this.zoneCmdArm = zoneCmdArm;
 	this.zoneCmdDisarm = zoneCmdDisarm;
 	this.getIsArmed = getIsArmed;
+	this.getMainIconClass = getMainIconClass;
+	this.getSecondaryIconClass = getSecondaryIconClass;
+	this.getZoneMainIconClass = getZoneMainIconClass;
+	this.getZoneSecondaryIconClass = getZoneSecondaryIconClass;
 
 
 	function showDeviceEditActionSheet() {
@@ -95,6 +100,27 @@ function DeviceCtrl($scope, $reactive, $stateParams, $ionicScrollDelegate,
 
 
 	function getIsArmed() {
-        return DeviceStates.getIsArmed(this.data);
+        return DevicesFunctions.isArmed(this.data);
     }
+
+
+	function getMainIconClass() {
+        return DevicesFunctions.getMainIconClass(this.data);
+    }
+
+
+	function getSecondaryIconClass() {
+        return DevicesFunctions.getSecondaryIconClass(this.data);
+    }
+
+
+	function getZoneMainIconClass(zone) {
+        return ZonesFunctions.getMainIconClass(zone);
+    }
+
+
+	function getZoneSecondaryIconClass(zone) {
+        return ZonesFunctions.getSecondaryIconClass(zone);
+    }
+
 }

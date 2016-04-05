@@ -5,27 +5,24 @@
 	</ion-nav-buttons>
 
     <ion-content>
-        <!--<ion-list>-->
-        <!--    <ion-item ng-repeat="device in devices.all">-->
-        <!--        {{device.name ? device.name : device._id}}-->
-        <!--    </ion-item>-->
-        <!--</ion-list>-->
-        <div class="list card" collection-repeat="device in devices.all">
-            <ion-item class="item item-divider bar header-bar">
-                <h2 class="title">{{device.name ? device.name : device._id}}</h2>
-            </ion-item>
-            <ion-item class="item item-icon-left item-icon-right">
-                <i class="assertive icon ion-locked" ng-if="devices.deviceIsArmed(device)"></i>
-                <i class="balanced icon ion-unlocked" ng-if="!devices.deviceIsArmed(device)"></i>
-                <h2 class="title">{{device._id}}</h2>
-                <p>{{devices.lastDeviceHistoryLineInfo(device)}}&nbsp;</p>
-            </ion-item>
-            <ion-item class="item item-divider">
-                <button class="button button-positive button-clear button-small" ng-click="devices.cmdArm(device)">Arm</button>
-                <button class="button button-positive button-clear button-small" ng-click="devices.cmdDisarm(device)">Disarm</button>
-                <button class="button button-positive button-clear button-small" ng-click="devices.cmdState(device)">State</button>
-            </ion-item>
-        </div>
+		<div style="display: flex; flex-flow: row wrap; justify-content: center; display: -webkit-flex; -webkit-flex-flow: row wrap; -webkit-justify-content: center;">
+			<div class="list card" ng-repeat="device in devices.all" style="margin: 4px; flex: auto; -webkit-flex: auto;">
+				<ion-item class="item item-divider bar bar-header">
+					<h2 class="title">{{device.name ? device.name : device._id}}</h2>
+					<button class="button icon ion-gear-a" ng-click="devices.showEditActionSheet(device)"></button>
+				</ion-item>
+				<a class="item item-icon-left item-icon-right" href="" ng-click="devices.goToDevice(device)">
+					<i ng-class="devices.getDeviceMainIconClass(device)"></i>
+					{{device._id}}
+					<i ng-class="devices.getDeviceSecondaryIconClass(device)"></i>
+				</a>
+				<ion-item class="item item-divider">
+					<button class="button button-positive button-clear button-small" ng-click="devices.cmdArm(device)">Arm</button>
+					<button class="button button-positive button-clear button-small" ng-click="devices.cmdDisarm(device)">Disarm</button>
+					<button class="button button-positive button-clear button-small" ng-click="devices.cmdState(device)">State</button>
+				</ion-item>
+			</div>
+		</div>
     </ion-content>
 
 </ion-view>

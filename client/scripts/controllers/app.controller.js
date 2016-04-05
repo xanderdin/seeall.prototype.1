@@ -3,23 +3,34 @@ angular
 	.controller('AppCtrl', AppCtrl);
 
 
-function AppCtrl($scope, $reactive, NewDevice, DeviceStates, DevicesService) {
-	
-	$reactive(this).attach($scope);
+function AppCtrl($scope, $reactive, NewDevice, DevicesFunctions) {
 
-	this.showNewDeviceModal = function() {
-		NewDevice.showModal();
-	}
+	$reactive(this).attach($scope);
 
 
 	this.helpers({
 		devices: function() {
-			return DevicesService.all();
+			return DevicesFunctions.getAllDevices();
 		}
 	});
 
 
-	this.deviceIsArmed = function(device) {
-		return DeviceStates.getIsArmed(device);
-	};
+	this.showNewDeviceModal = showNewDeviceModal;
+	this.getDeviceMainIconClass = getDeviceMainIconClass;
+	this.getDeviceSecondaryIconClass = getDeviceSecondaryIconClass;
+
+
+	function showNewDeviceModal() {
+		NewDevice.showModal();
+	}
+
+
+	function getDeviceMainIconClass(device) {
+		return DevicesFunctions.getMainIconClass(device);
+	}
+
+
+	function getDeviceSecondaryIconClass(device) {
+		return DevicesFunctions.getSecondaryIconClass(device);
+	}
 }

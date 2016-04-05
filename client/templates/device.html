@@ -1,7 +1,7 @@
 <ion-view view-title="{{device.data.name ? device.data.name : device.data._id}}">
 
 	<ion-nav-buttons side="right">
-		<button ng-click="device.showDeviceEditActionSheet()" class="button button-clear button-icon ion-ios-gear-outline"></button>
+		<button ng-click="device.showDeviceEditActionSheet()" class="button button-clear icon ion-gear-a"></button>
 	</ion-nav-buttons>
 
 	<ion-pane>
@@ -12,92 +12,106 @@
 				<ion-nav-view name="device-panel">
 					<ion-content>
 
-						<!--<div class="device-info-pads list">-->
-						<div class="list">
-							<!--<div class="device-info-pad list card" style="margin: 4px;">-->
-							<!--<div class="list card">-->
+						<ion-list>
 
-								<!--<div class="item item-thumbnail-left item-text-wrap">-->
-								<div class="item item-icon-left item-text-wrap">
-									<!--<img src="{{device.getMainPicture()}}" ng-click="device.showDeviceCmdActionSheet()" class="button button-outline">-->
-									<i class="assertive icon ion-locked" ng-if="device.getIsArmed()"></i>
-									<i class="balanced icon ion-unlocked" ng-if="!device.getIsArmed()"></i>
-									<h2>{{device.data._id}}</h2>
-									<p>{{device.lastHistoryLine.info}}</p>
+							<ion-item class="assertive item item-icon-left" ng-if="device.data.isFailure === true">
+								<i class="assertive icon ion-alert"></i>
+								<strong>Failure</strong>
+							</ion-item>
+
+							<ion-item class="energized item item-icon-left" ng-if="device.data.isOff === false && device.data.isOnline === false">
+								<i class="energized icon ion-alert"></i>
+								<strong>Offline</strong>
+							</ion-item>
+
+							<!--<ion-item class="item item-icon-left" ng-if="device.data.isOff === true">-->
+							<!--	<i class="icon ion-eye-disabled"></i>-->
+							<!--	<strong>Switched Off</strong>-->
+							<!--</ion-item>-->
+
+							<ion-item class="assertive item item-icon-left" ng-if="device.data.isTamperOpen === true">
+								<i class="assertive icon ion-alert"></i>
+								Tamper open
+							</ion-item>
+
+							<ion-item class="energized item item-icon-left" ng-if="device.data.isPowerLost === true">
+								<i class="energized icon ion-alert"></i>
+								Power lost
+							</ion-item>
+
+							<ion-item class="energized item item-icon-left" ng-if="device.data.isBatteryLow === true">
+								<i class="energized icon ion-alert"></i>
+								Battery low
+							</ion-item>
+
+							<!--<ion-item class="item item-icon-left" ng-if="device.data.isOff === false && device.data.isFailure !== true">-->
+							<ion-item class="item item-icon-left item-icon-right" ng-if="device.data.isFailure !== true">
+								<i ng-class="device.getMainIconClass()"></i>
+								{{device.lastHistoryRecord.info}}&nbsp;
+								<i ng-class="device.getSecondaryIconClass()"></i>
+							</ion-item>
+
+							<ion-item class="item item-divider">
+								<button class="button button-clear button-small button-positive" ng-click="device.cmdArm()">Arm</button>
+								<button class="button button-clear button-small button-positive" ng-click="device.cmdDisarm()">Disarm</button>
+								<button class="button button-clear button-small button-positive" ng-click="device.cmdState()">State</button>
+							</ion-item>
+
+						</ion-list>
+
+							<!--<ion-item class="item item-divider">-->
+							<!--	Zones-->
+							<!--</ion-item>-->
+
+							<div style="display: flex; flex-flow: row wrap;">
+								<div ng-repeat="zone in device.data.zones" class="item item-icon-left item-icon-right" style="flex: auto; margin: 0px; min-width: 150px;">
+									<i ng-class="device.getZoneMainIconClass(zone)"></i>
+
+									<strong>{{('' + zone._id).length === 1 ? '0' + zone._id : zone._id}}</strong>:&nbsp;{{zone.name}}
+
+									<!--<button class="button button-clear">-->
+									<!--	<i class="icon ion-gear-a"></i>-->
+									<!--</button>-->
+									<i ng-class="device.getZoneSecondaryIconClass(zone)"></i>
 								</div>
+							</div>
 
-								<div class="item item-divider">
-									<button class="button button-clear button-small button-positive" ng-click="device.cmdArm()">Arm</button>
-									<button class="button button-clear button-small button-positive" ng-click="device.cmdDisarm()">Disarm</button>
-									<button class="button button-clear button-small button-positive" ng-click="device.cmdState()">State</button>
-								</div>
+						<ion-list>
 
-							<!--</div>-->
-
-							<!--<div class="device-info-pad list card" style="margin: 4px;">-->
-							<!--<div class="list card">-->
-								<div class="item item-text-wrap">
-									<div class="row" style="max-width: 500px;">
-										<div class="col">Link:</div><div class="col">OK</div>
-										<div class="col">Tamper:</div><div class="col">OK</div>
-									</div>
-									<div class="row" style="max-width: 500px;">
-										<div class="col">Power:</div><div class="col">OK</div>
-										<div class="col">Battery:</div><div class="col">OK</div>
-									</div>
-								</div>
-							<!--</div>-->
-						</div>
-
-<!-- 						<div class="row">
-							<div class="col item">01</div>
-							<div class="col item">02</div>
-							<div class="col item">03</div>
-							<div class="col item">04</div>
-						</div>
-						<div class="row">
-							<div class="col item">05</div>
-							<div class="col item">06</div>
-							<div class="col item">07</div>
-							<div class="col item">08</div>
-						</div>
-						<div class="row">
-							<div class="col item">09</div>
-							<div class="col item">10</div>
-							<div class="col item">11</div>
-							<div class="col item">12</div>
-						</div>
-						<div class="row">
-							<div class="col item">13</div>
-							<div class="col item">14</div>
-							<div class="col item">15</div>
-							<div class="col item">16</div>
-						</div>
-						<div class="row">
-							<div class="col item">17</div>
-							<div class="col item">18</div>
-							<div class="col item">19</div>
-							<div class="col item">20</div>
-						</div>
-						<div class="row">
-							<div class="col item">21</div>
-							<div class="col item">22</div>
-							<div class="col item">23</div>
-							<div class="col item">24</div>
-						</div>
-						<div class="row">
-							<div class="col item">25</div>
-							<div class="col item">26</div>
-							<div class="col item">27</div>
-							<div class="col item">28</div>
-						</div>
-						<div class="row">
-							<div class="col item">29</div>
-							<div class="col item">30</div>
-							<div class="col item">31</div>
-							<div class="col item">32</div>
-						</div>
- -->
+							<ion-item class="item item-divider">
+								Info
+							</ion-item>
+							<div style="display: flex; flex-flow: row wrap;">
+								<!--<ion-item class="item item-icon-right" style="flex: auto; margin: 0px;" ng-if="device.data.isOff !== undefined">-->
+								<!--	ON-->
+								<!--	<i class="balanced icon ion-checkmark" ng-if="!device.data.isOff"></i>-->
+								<!--	<i class="assertive icon ion-alert" ng-if="device.data.isOff"></i>-->
+								<!--</ion-item>-->
+								<!--<ion-item class="item item-icon-right" style="flex: auto; margin: 0px;" ng-if="device.data.isOnline !== undefined">-->
+								<!--	Online-->
+								<!--	<i class="balanced icon ion-checkmark" ng-if="device.data.isOnline"></i>-->
+								<!--	<i class="assertive icon ion-alert" ng-if="!device.data.isOnline"></i>-->
+								<!--</ion-item>-->
+								<!--<ion-item class="item item-icon-right" style="flex: auto; margin: 0px;" ng-if="device.data.isTamperOpen !== undefined">-->
+								<!--	Tamper-->
+								<!--	<i class="balanced icon ion-checkmark" ng-if="!device.data.isTamperOpen"></i>-->
+								<!--	<i class="assertive icon ion-alert" ng-if="device.data.isTamperOpen"></i>-->
+								<!--</ion-item>-->
+								<!--<ion-item class="item item-icon-right" style="flex: auto; margin: 0px;" ng-if="device.data.isPowerLost !== undefined">-->
+								<!--	Power-->
+								<!--	<i class="balanced icon ion-checkmark" ng-if="!device.data.isPowerLost"></i>-->
+								<!--	<i class="assertive icon ion-alert" ng-if="device.data.isPowerLost"></i>-->
+								<!--</ion-item>-->
+								<!--<ion-item class="item item-icon-right" style="flex: auto; margin: 0px;" ng-if="device.data.isBatteryLow !== undefined">-->
+								<!--	Battery-->
+								<!--	<i class="balanced icon ion-checkmark" ng-if="!device.data.isBatteryLow"></i>-->
+								<!--	<i class="assertive icon ion-alert" ng-if="device.data.isBatteryLow"></i>-->
+								<!--</ion-item>-->
+								<ion-item class="item" style="flex: auto; margin: 0px;">
+									<strong>GID</strong>:&nbsp;{{device.data._id}}
+								</ion-item>
+							</div>
+						</ion-list>
 
 					</ion-content>
 				</ion-nav-view>
