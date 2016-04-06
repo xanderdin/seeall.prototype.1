@@ -9,17 +9,19 @@
 			<div class="list card" ng-repeat="device in devices.all" style="margin: 4px; flex: auto; -webkit-flex: auto;">
 				<ion-item class="item item-divider bar bar-header">
 					<h2 class="title">{{device.name ? device.name : device._id}}</h2>
-					<button class="button icon ion-gear-a" ng-click="devices.showEditActionSheet(device)"></button>
+					<button class="button icon ion-android-more-vertical" ng-click="devices.showActionSheet(device)"></button>
 				</ion-item>
 				<a class="item item-icon-left item-icon-right" href="" ng-click="devices.goToDevice(device)">
 					<i ng-class="devices.getDeviceMainIconClass(device)"></i>
-					{{device._id}}
+					<!--{{device._id}}-->
+					<strong>GID</strong>:{{device._id}}
+					<!--{{devices.lastHistoryRecordInfo(device)}}-->
 					<i ng-class="devices.getDeviceSecondaryIconClass(device)"></i>
 				</a>
 				<ion-item class="item item-divider">
-					<button class="button button-positive button-clear button-small" ng-click="devices.cmdArm(device)">Arm</button>
-					<button class="button button-positive button-clear button-small" ng-click="devices.cmdDisarm(device)">Disarm</button>
-					<button class="button button-positive button-clear button-small" ng-click="devices.cmdState(device)">State</button>
+					<button class="button button-positive button-clear button-small" ng-click="devices.cmdArm(device)" ng-disabled="device.isOff === true || device.isOnline === false">Arm</button>
+					<button class="button button-positive button-clear button-small" ng-click="devices.cmdDisarm(device)" ng-disabled="device.isOff === true || device.isOnline === false">Disarm</button>
+					<button class="button button-positive button-clear button-small" ng-click="devices.cmdState(device)" ng-disabled="device.isOff === true || device.isOnline === false">State</button>
 				</ion-item>
 			</div>
 		</div>

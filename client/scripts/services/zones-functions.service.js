@@ -130,10 +130,9 @@ function ZonesFunctions() {
     function getSecondaryIconClass(zone) {
 
         if (hasAttentionInfo(zone)) {
-            return 'energized icon ion-alert-circled';
+            return 'energized icon ion-alert';
         }
 
         return '';
     }
-
 }

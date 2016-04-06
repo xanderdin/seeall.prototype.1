@@ -6,15 +6,16 @@ angular
 function DeviceActions($rootScope, $ionicActionSheet, $ionicPopup,
 					   $state, $ionicHistory) {
 
-	this.showEditActionSheet = showEditActionSheet;
-	this.showCmdActionSheet = showCmdActionSheet;
+	//this.showEditActionSheet = showEditActionSheet;
+	//this.showCmdActionSheet = showCmdActionSheet;
+	this.showActionSheet = showActionSheet;
 	this.cmdArm = cmdArm;
 	this.cmdDisarm = cmdDisarm;
 	this.cmdState = cmdState;
 	this.showEditPopup = showEditPopup;
 	this.showRemovePopup = showRemovePopup;
 
-	function showEditActionSheet(device) {
+	function showActionSheet(device) {
 
 		var title;
 		var buttons;
@@ -22,8 +23,11 @@ function DeviceActions($rootScope, $ionicActionSheet, $ionicPopup,
 		//if (device.isActivated === true) {
 			title = device.name ? device.name : device._id;
 			buttons = [
-				{ text: 'Edit' },
-				{ text: 'Deactivate' }
+				{ text: 'Arm' },
+				{ text: 'Disarm' },
+				{ text: 'State' },
+				{ text: 'Rename' }
+				//{ text: 'Deactivate' }
 			];
 		// } else {
 		// 	buttons = [
@@ -39,6 +43,15 @@ function DeviceActions($rootScope, $ionicActionSheet, $ionicPopup,
 			buttonClicked: function(index) {
 				switch (index) {
 					case 0:
+						cmdArm(device);
+						break;
+					case 1:
+						cmdDisarm(device);
+						break;
+					case 2:
+						cmdState(device);
+						break;
+					case 3:
 						showEditPopup(device);
 						break;
 				}
@@ -52,62 +65,106 @@ function DeviceActions($rootScope, $ionicActionSheet, $ionicPopup,
 	}
 
 
-	function showCmdActionSheet(device) {
-
-		var title;
-		var buttons;
-
-		//if (device.isActivated === true) {
-			title = device.name ? device.name : device._id;
-			buttons = [
-				{ text: 'Arm' },
-				{ text: 'Disarm' },
-				{ text: 'State' }
-			];
-		// } else {
-		// 	buttons = [
-		// 		{ text: 'Activate' }
-		// 	];
-		// }
-
-		$ionicActionSheet.show({
-			titleText: title,
-			buttons: buttons,
-			//destructiveText: 'Remove',
-			cancelText: 'Cancel',
-			buttonClicked: function(index) {
-				switch (index) {
-					case 0:
-						cmdArm(device);
-						break;
-					case 1:
-						cmdDisarm(device);
-						break;
-					case 2:
-						cmdState(device);
-						break;
-				}
-				return true;
-			}
-		});
-	}
+	//function showEditActionSheet(device) {
+	//
+	//	var title;
+	//	var buttons;
+	//
+	//	//if (device.isActivated === true) {
+	//		title = device.name ? device.name : device._id;
+	//		buttons = [
+	//			{ text: 'Rename' },
+	//			{ text: 'Deactivate' }
+	//		];
+	//	// } else {
+	//	// 	buttons = [
+	//	// 		{ text: 'Activate' }
+	//	// 	];
+	//	// }
+	//
+	//	$ionicActionSheet.show({
+	//		titleText: title,
+	//		buttons: buttons,
+	//		destructiveText: 'Remove',
+	//		cancelText: 'Cancel',
+	//		buttonClicked: function(index) {
+	//			switch (index) {
+	//				case 0:
+	//					showEditPopup(device);
+	//					break;
+	//			}
+	//			return true;
+	//		},
+	//		destructiveButtonClicked: function() {
+	//			showRemovePopup(device);
+	//			return true;
+	//		}
+	//	});
+	//}
+	//
+	//
+	//function showCmdActionSheet(device) {
+	//
+	//	var title;
+	//	var buttons;
+	//
+	//	//if (device.isActivated === true) {
+	//		title = device.name ? device.name : device._id;
+	//		buttons = [
+	//			{ text: 'Arm' },
+	//			{ text: 'Disarm' },
+	//			{ text: 'State' }
+	//		];
+	//	// } else {
+	//	// 	buttons = [
+	//	// 		{ text: 'Activate' }
+	//	// 	];
+	//	// }
+	//
+	//	$ionicActionSheet.show({
+	//		titleText: title,
+	//		buttons: buttons,
+	//		//destructiveText: 'Remove',
+	//		cancelText: 'Cancel',
+	//		buttonClicked: function(index) {
+	//			switch (index) {
+	//				case 0:
+	//					cmdArm(device);
+	//					break;
+	//				case 1:
+	//					cmdDisarm(device);
+	//					break;
+	//				case 2:
+	//					cmdState(device);
+	//					break;
+	//			}
+	//			return true;
+	//		}
+	//	});
+	//}
 
 
 	function cmdArm(device) {
-		// $ionicPopup.alert({
-		// 	title: 'Arm',
-		// 	template: device._id
-		// });
-		Meteor.call('setDeviceArmed', device._id, true);
+		if (device.isOff === true || device.isOnline === false) {
+			$ionicPopup.alert({
+			   title: 'Impossible',
+			   template: 'Device is unreachable'
+			});
+        } else {
+			Meteor.call('setDeviceArmed', device._id, true);
+		}
 	}
 
 
 	function cmdDisarm(device) {
-		// $ionicPopup.alert({
-		// 	title: 'Disarm',
-		// 	template: device._id
-		// });
-		Meteor.call('setDeviceArmed', device._id, false);
+		if (device.isOff === true || device.isOnline === false) {
+			$ionicPopup.alert({
+			   title: 'Impossible',
+			   template: 'Device is unreachable'
+			});
+        } else {
+			Meteor.call('setDeviceArmed', device._id, false);
+		}
 	}
 
 
@@ -125,8 +182,8 @@ function DeviceActions($rootScope, $ionicActionSheet, $ionicPopup,
 		this._scope.newName = device.name;
 
 		$ionicPopup.show({
-			title: 'Edit Device ' + device._id,
-			templateUrl: 'client/templates/device-edit.html',
+			title: 'GID: ' + device._id,
+			templateUrl: 'client/templates/device-edit-popup.html',
 			scope: this._scope,
 			buttons: [
 				{ text: 'Cancel' },

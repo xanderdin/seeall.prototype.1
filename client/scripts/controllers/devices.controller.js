@@ -4,7 +4,7 @@ angular
 
 
 function DevicesCtrl($scope, $reactive, $state, $ionicHistory,
-                     DevicesFunctions, NewDevice, DeviceActions) {
+                     DevicesFunctions, DeviceActions, NewDeviceModal) {
 
     $reactive(this).attach($scope);
 
@@ -18,6 +18,15 @@ function DevicesCtrl($scope, $reactive, $state, $ionicHistory,
 
     this.getDeviceMainIconClass = getDeviceMainIconClass;
     this.getDeviceSecondaryIconClass = getDeivceSecondaryIconClass;
+    this.showNewDeviceModal = showNewDeviceModal;
+    this.deviceIsArmed = deviceIsArmed;
+    this.lastHistoryRecord = lastHistoryRecord;
+    this.lastHistoryRecordInfo = lastHistoryRecordInfo;
+    this.cmdArm = cmdArm;
+    this.cmdDisarm = cmdDisarm;
+    this.cmdState = cmdState;
+    this.goToDevice = goToDevice;
+    this.showActionSheet = showActionSheet;
 
 
     function getDeviceMainIconClass(device) {
@@ -30,43 +39,57 @@ function DevicesCtrl($scope, $reactive, $state, $ionicHistory,
     }
 
 
-    this.showNewDeviceModal = function() {
-        NewDevice.showModal();
-    };
+    function showNewDeviceModal() {
+        NewDeviceModal.showModal();
+    }
 
 
-    this.deviceIsArmed = function(device) {
+    function deviceIsArmed(device) {
         return DevicesFunctions.isArmed(device);
-    };
+    }
 
 
-    this.lastHistoryRecord = function(device) {
+    function lastHistoryRecord(device) {
         return DevicesFunctions.getLastHistoryRecord(device);
-    };
+    }
 
 
-    this.cmdArm = function(device) {
+    function lastHistoryRecordInfo(device) {
+
+        var record = lastHistoryRecord(device);
+
+        if (record && record.info) {
+            return record.info;
+        } else if (device) {
+            return device._id;
+        }
+
+        return '';
+    }
+
+
+    function cmdArm(device) {
         DeviceActions.cmdArm(device);
-    };
+    }
 
 
-    this.cmdDisarm = function(device) {
+    function cmdDisarm(device) {
         DeviceActions.cmdDisarm(device);
-    };
+    }
 
 
-    this.cmdState = function(device) {
+    function cmdState(device) {
         DeviceActions.cmdState(device);
-    };
+    }
 
 
-    this.goToDevice = function(device) {
+    function goToDevice(device) {
         $ionicHistory.currentView($ionicHistory.backView());
         $state.go('app.device', { devId: device._id }, { location: 'replace' });
-    };
+    }
 
 
-    this.showEditActionSheet = function(device) {
-        DeviceActions.showEditActionSheet(device);
+    function showActionSheet(device) {
+        DeviceActions.showActionSheet(device);
     }
 }

@@ -4,8 +4,8 @@ angular
 
 
 function DeviceCtrl($scope, $reactive, $stateParams, $ionicScrollDelegate,
-					DeviceActions, DevicesFunctions, ZoneActions, ZoneInfo,
-					ZonesFunctions) {
+					DevicesFunctions, DeviceActions, DeviceInfoPopup,
+					ZonesFunctions, ZoneActions, ZoneInfoPopup) {
 
 	$reactive(this).attach($scope);
 
@@ -32,10 +32,13 @@ function DeviceCtrl($scope, $reactive, $stateParams, $ionicScrollDelegate,
 	//});
 
 
-	this.showDeviceEditActionSheet = showDeviceEditActionSheet;
-	this.showDeviceCmdActionSheet = showDeviceCmdActionSheet;
-	this.showZoneEditActionSheet = showZoneEditActionSheet;
-	this.showZoneCmdActionSheet = showZoneCmdActionSheet;
+	//this.showDeviceEditActionSheet = showDeviceEditActionSheet;
+	//this.showDeviceCmdActionSheet = showDeviceCmdActionSheet;
+	//this.showZoneEditActionSheet = showZoneEditActionSheet;
+	//this.showZoneCmdActionSheet = showZoneCmdActionSheet;
+	this.showDeviceActionSheet = showDeviceActionSheet;
+	this.showZoneActionSheet = showZoneActionSheet;
+	this.showDeviceInfoPopup = showDeviceInfoPopup;
 	this.showZoneInfoPopup = showZoneInfoPopup;
 	this.cmdArm = cmdArm;
 	this.cmdDisarm = cmdDisarm;
@@ -47,16 +50,22 @@ function DeviceCtrl($scope, $reactive, $stateParams, $ionicScrollDelegate,
 	this.getSecondaryIconClass = getSecondaryIconClass;
 	this.getZoneMainIconClass = getZoneMainIconClass;
 	this.getZoneSecondaryIconClass = getZoneSecondaryIconClass;
+	this.hasZoneAttentionInfo = hasZoneAttentionInfo;
 
 
-	function showDeviceEditActionSheet() {
-		DeviceActions.showEditActionSheet(this.data);
-	}
+	//function showDeviceEditActionSheet() {
+	//	DeviceActions.showEditActionSheet(this.data);
+	//}
+	//
+	//
+	//function showDeviceCmdActionSheet() {
+	//	DeviceActions.showCmdActionSheet(this.data);
+	//}
 
 
-	function showDeviceCmdActionSheet() {
-		DeviceActions.showCmdActionSheet(this.data);
-	}
+	function showDeviceActionSheet() {
+        DeviceActions.showActionSheet(this.data);
+    }
 
 
 	function cmdArm() {
@@ -74,18 +83,28 @@ function DeviceCtrl($scope, $reactive, $stateParams, $ionicScrollDelegate,
     }
 
 
-	function showZoneEditActionSheet(zone) {
-		ZoneActions.showEditActionSheet(this.data, zone);
-	}
+	//function showZoneEditActionSheet(zone) {
+	//	ZoneActions.showEditActionSheet(this.data, zone);
+	//}
+	//
+	//
+	//function showZoneCmdActionSheet(zone) {
+	//	ZoneActions.showCmdActionSheet(this.data, zone);
+	//}
 
 
-	function showZoneCmdActionSheet(zone) {
-		ZoneActions.showCmdActionSheet(this.data, zone);
-	}
+	function showZoneActionSheet(zone) {
+        ZoneActions.showActionSheet(this.data, zone);
+    }
 
+
+	function showDeviceInfoPopup(device) {
+        DeviceInfoPopup.showPopup(device);
+    }
+	
 
 	function showZoneInfoPopup(zone) {
-		ZoneInfo.showPopup(zone);
+		ZoneInfoPopup.showPopup(zone);
 	}
 
 
@@ -121,6 +140,11 @@ function DeviceCtrl($scope, $reactive, $stateParams, $ionicScrollDelegate,
 
 	function getZoneSecondaryIconClass(zone) {
         return ZonesFunctions.getSecondaryIconClass(zone);
+    }
+
+
+	function hasZoneAttentionInfo(zone) {
+        return ZonesFunctions.hasAttentionInfo(zone);
     }
 
 }

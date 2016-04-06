@@ -1,9 +1,9 @@
 angular
 	.module('SeeAll')
-	.controller('NewDeviceCtrl', NewDeviceCtrl);
+	.controller('NewDeviceModalCtrl', NewDeviceModalCtrl);
 
 
-function NewDeviceCtrl($scope, $reactive, $state, $ionicHistory, NewDevice) {
+function NewDeviceModalCtrl($scope, $reactive, $state, $ionicHistory, NewDeviceModal) {
 
 	$reactive(this).attach($scope);
 
@@ -12,7 +12,7 @@ function NewDeviceCtrl($scope, $reactive, $state, $ionicHistory, NewDevice) {
 
 
 	function hideNewDeviceModal() {
-		NewDevice.hideModal();
+		NewDeviceModal.hideModal();
 	}
 
 

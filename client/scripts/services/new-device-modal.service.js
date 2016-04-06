@@ -1,10 +1,11 @@
 angular
 	.module('SeeAll')
-	.service('NewDevice', NewDevice);
+	.service('NewDeviceModal', NewDeviceModal);
 
 
-function NewDevice($rootScope, $ionicModal) {
-	var templateUrl = 'client/templates/new-device.html';
+function NewDeviceModal($rootScope, $ionicModal) {
+
+	var templateUrl = 'client/templates/new-device-modal.html';
 
 	this.showModal = showModal;
 	this.hideModal = hideModal;

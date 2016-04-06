@@ -11,6 +11,7 @@ function DevicesFunctions(ZonesFunctions) {
     this.getLastHistoryRecord = getLastHistoryRecord;
     this.getMainIconClass = getMainIconClass;
     this.getSecondaryIconClass = getSecondaryIconCalss;
+    this.hasAttentionInfo = hasAttentionInfo;
     this.hasZonesAttentionInfo = hasZonesAttentionInfo;
 
 
@@ -39,6 +40,28 @@ function DevicesFunctions(ZonesFunctions) {
         }
 
         if (device.isTamperOpen) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    function hasAttentionInfo(device) {
+
+        if (device.isOnline === false) {
+            return true;
+        }
+
+        if (device.isTamperOpen === true) {
+            return true;
+        }
+
+        if (device.isBatteryLow === true) {
+            return true;
+        }
+
+        if (device.isPowerLost === true) {
             return true;
         }
 
@@ -78,7 +101,9 @@ function DevicesFunctions(ZonesFunctions) {
         //    return 'dark icon ion-ios-help-outline';
         //} else
 
-        if (device.isOff === true) {
+        if (device.isFailure === true) {
+            return 'assertive icon ion-sad-outline';
+        } else if (device.isOff === true) {
             return 'dark icon ion-eye-disabled';
         } else if (armed && isInAlarm(device)) {
             return 'assertive icon flaticon-broken37';
@@ -92,26 +117,16 @@ function DevicesFunctions(ZonesFunctions) {
 
     function getSecondaryIconCalss(device) {
 
-        var result = 'energized icon ion-alert-circled';
-
-        if (device.isOnline === false) {
-            return result;
-        }
-
-        if (device.isTamperOpen === true) {
-            return result;
-        }
-
-        if (device.isBatteryLow === true) {
-            return result;
-        }
-
-        if (device.isPowerLost === true) {
-            return result;
-        }
+        var icon = ' icon ion-alert';
 
         if (device.isFailure === true) {
-            return 'assertive icon ion-alert-circled';
+            return 'assertive' + icon;
+        }
+
+        var result = 'energized' + icon;
+
+        if (hasAttentionInfo(device)) {
+            return result;
         }
 
         if (hasZonesAttentionInfo(device)) {

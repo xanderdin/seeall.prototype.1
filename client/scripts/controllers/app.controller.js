@@ -3,7 +3,7 @@ angular
 	.controller('AppCtrl', AppCtrl);
 
 
-function AppCtrl($scope, $reactive, NewDevice, DevicesFunctions) {
+function AppCtrl($scope, $reactive, NewDeviceModal, DevicesFunctions) {
 
 	$reactive(this).attach($scope);
 
@@ -21,7 +21,7 @@ function AppCtrl($scope, $reactive, NewDevice, DevicesFunctions) {
 
 
 	function showNewDeviceModal() {
-		NewDevice.showModal();
+		NewDeviceModal.showModal();
 	}
 
 

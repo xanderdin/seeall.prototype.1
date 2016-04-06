@@ -1,0 +1,23 @@
+<div ng-controller="ZoneInfoPopupCtrl">
+	<ion-list ng-show="hasAttentionInfo">
+		<ion-item class="energized item item-icon-left" ng-show="zone.isLinkLost === true">
+			<i class="energized icon ion-alert"></i>
+			No link
+		</ion-item>
+		<ion-item class="energized item item-icon-left" ng-show="zone.isTamperOpen === true">
+			<i class="energized icon ion-alert"></i>
+			Tamper open
+		</ion-item>
+		<ion-item class="energized item item-icon-left" ng-show="zone.isPowerLost === true">
+			<i class="energized icon ion-alert"></i>
+			Power lost
+		</ion-item>
+		<ion-item class="energized item item-icon-left" ng-show="zone.isBatteryLow === true">
+			<i class="energized icon ion-alert"></i>
+			Battery low
+		</ion-item>
+	</ion-list>
+	<div ng-hide="hasAttentionInfo">
+		No info
+	</div>
+</div>

@@ -5,22 +5,25 @@ angular
 
 function ZoneActions($rootScope, $ionicActionSheet, $ionicPopup) {
 
-	this.showEditActionSheet = showEditActionSheet;
-	this.showCmdActionSheet = showCmdActionSheet;
+	//this.showEditActionSheet = showEditActionSheet;
+	//this.showCmdActionSheet = showCmdActionSheet;
+	this.showActionSheet = showActionSheet;
 	this.cmdArm = cmdArm;
 	this.cmdDisarm = cmdDisarm;
 	this.showEditPopup = showEditPopup;
 	this.showRemovePopup = showRemovePopup;
 
 
-	function showEditActionSheet(device, zone) {
+	function showActionSheet(device, zone) {
 
 		var buttons;
 		var titleText = zone.name ? zone.name : zone._id;
 
 		//if (device.isActivated === true) {
 			buttons = [
-				{ text: 'Edit' }
+				{ text: 'Arm' },
+				{ text: 'Disarm' },
+				{ text: 'Rename' }
 			];
 		// } else {
 		// 	buttons = [
@@ -36,6 +39,12 @@ function ZoneActions($rootScope, $ionicActionSheet, $ionicPopup) {
 			buttonClicked: function(index) {
 				switch (index) {
 					case 0:
+						cmdArm(device, zone);
+						break;
+					case 1:
+						cmdDisarm(device, zone);
+						break;
+					case 2:
 						showEditPopup(device, zone);
 						break;
 				}
@@ -46,69 +55,110 @@ function ZoneActions($rootScope, $ionicActionSheet, $ionicPopup) {
 				return true;
 			}
 		});
-	}
+    }
 
-
-	function showCmdActionSheet(device, zone) {
-
-		var buttons;
-		var titleText = zone.name ? zone.name : zone._id;
-
-		//if (device.isActivated === true) {
-			buttons = [
-				{ text: 'Arm' },
-				{ text: 'Disarm' }
-			];
-		// } else {
-		// 	buttons = [
-		// 		{ text: 'Activate' }
-		// 	];
-		// }
-
-		$ionicActionSheet.show({
-			buttons: buttons,
-			titleText: titleText,
-			cancelText: 'Cancel',
-			buttonClicked: function(index) {
-				switch (index) {
-					case 0:
-						cmdArm(device, zone);
-						break;
-					case 1:
-						cmdDisarm(device, zone);
-						break;
-				}
-				return true;
-			//},
-			//destructiveButtonClicked: function() {
-			//	showRemovePopup(device, zone);
-			//	return true;
-			}
-		});
-	}
+	//function showEditActionSheet(device, zone) {
+	//
+	//	var buttons;
+	//	var titleText = zone.name ? zone.name : zone._id;
+	//
+	//	//if (device.isActivated === true) {
+	//		buttons = [
+	//			{ text: 'Edit' }
+	//		];
+	//	// } else {
+	//	// 	buttons = [
+	//	// 		{ text: 'Activate' }
+	//	// 	];
+	//	// }
+	//
+	//	$ionicActionSheet.show({
+	//		buttons: buttons,
+	//		titleText: titleText,
+	//		destructiveText: 'Remove',
+	//		cancelText: 'Cancel',
+	//		buttonClicked: function(index) {
+	//			switch (index) {
+	//				case 0:
+	//					showEditPopup(device, zone);
+	//					break;
+	//			}
+	//			return true;
+	//		},
+	//		destructiveButtonClicked: function() {
+	//			showRemovePopup(device, zone);
+	//			return true;
+	//		}
+	//	});
+	//}
+	//
+	//
+	//function showCmdActionSheet(device, zone) {
+	//
+	//	var buttons;
+	//	var titleText = zone.name ? zone.name : zone._id;
+	//
+	//	//if (device.isActivated === true) {
+	//		buttons = [
+	//			{ text: 'Arm' },
+	//			{ text: 'Disarm' }
+	//		];
+	//	// } else {
+	//	// 	buttons = [
+	//	// 		{ text: 'Activate' }
+	//	// 	];
+	//	// }
+	//
+	//	$ionicActionSheet.show({
+	//		buttons: buttons,
+	//		titleText: titleText,
+	//		cancelText: 'Cancel',
+	//		buttonClicked: function(index) {
+	//			switch (index) {
+	//				case 0:
+	//					cmdArm(device, zone);
+	//					break;
+	//				case 1:
+	//					cmdDisarm(device, zone);
+	//					break;
+	//			}
+	//			return true;
+	//		//},
+	//		//destructiveButtonClicked: function() {
+	//		//	showRemovePopup(device, zone);
+	//		//	return true;
+	//		}
+	//	});
+	//}
 
 
 	function cmdArm(device, zone) {
-		// $ionicPopup.alert({
-		// 	title: 'Arm',
-		// 	template: device._id + ' ' + zone._id
-		// });
-		Meteor.call('setZoneArmed', device._id, zone._id, true);
+		if (device.isOff === true || device.isOnline === false) {
+			$ionicPopup.alert({
+			   title: 'Impossible',
+			   template: 'Device is unreachable'
+			});
+        } else {
+			Meteor.call('setZoneArmed', device._id, zone._id, true);
+		}
 	}
 
 
 	function cmdDisarm(device, zone) {
-		// $ionicPopup.alert({
-		// 	title: 'Disarm',
-		// 	template: device._id + ' ' + zone._id
-		// });
-		Meteor.call('setZoneArmed', device._id, zone._id, false);
+		if (device.isOff === true || device.isOnline === false) {
+			$ionicPopup.alert({
+			   title: 'Impossible',
+			   template: 'Device is unreachable'
+			});
+        } else {
+			Meteor.call('setZoneArmed', device._id, zone._id, false);
+		}
 	}
 
 
 	function showEditPopup(device, zone) {
 
-		var templateUrl = 'client/templates/zone-edit.html';
+		var templateUrl = 'client/templates/zone-edit-popup.html';
 
 		this._scope = $rootScope.$new();
 		this._scope.newName = zone.name;
