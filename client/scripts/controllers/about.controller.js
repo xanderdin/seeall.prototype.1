@@ -4,5 +4,7 @@ angular
 
 
 function AboutCtrl($scope, $reactive) {
+
 	$reactive(this).attach($scope);
+
 }

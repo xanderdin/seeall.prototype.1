@@ -11,6 +11,9 @@ function AppCtrl($scope, $reactive, NewDeviceModal, DevicesFunctions) {
 	this.helpers({
 		devices: function() {
 			return DevicesFunctions.getAllDevices();
+		},
+		isConnected: function() {
+			return Meteor.status().connected;
 		}
 	});
 

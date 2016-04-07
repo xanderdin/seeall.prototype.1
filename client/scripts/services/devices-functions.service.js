@@ -104,7 +104,7 @@ function DevicesFunctions(ZonesFunctions) {
         if (device.isFailure === true) {
             return 'assertive icon ion-sad-outline';
         } else if (device.isOff === true) {
-            return 'dark icon ion-eye-disabled';
+            return 'dark icon ion-ios-lightbulb';
         } else if (armed && isInAlarm(device)) {
             return 'assertive icon flaticon-broken37';
         } else if (armed) {

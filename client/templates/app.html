@@ -3,8 +3,10 @@
 	<ion-side-menu side="left" expose-aside-when="large">
 	<!-- <ion-side-menu side="left"> -->
 
-		<ion-header-bar class="bar-stable">
-			<h1 class="title">Menu</h1>
+		<ion-header-bar class="bar-stable item-icon-right bar-dark">
+			<h1 class="title">See All</h1>
+			<i class="icon ion-eye balanced" ng-if="app.isConnected"></i>
+			<i class="icon ion-eye light" ng-if="!app.isConnected"></i>
 		</ion-header-bar>
 
 		<ion-content>

@@ -12,6 +12,30 @@
 				<ion-nav-view name="device-main">
 					<ion-content>
 
+						<div class="item item-divider row">
+
+							<div class="col col-67">
+								<strong>GID</strong>:{{device.data._id}}
+							</div>
+							<div class="col">
+								<i class="icon ion-eye" ng-show="device.data.isOnline === true"></i>
+								<i class="icon ion-eye-disabled" ng-hide="device.data.isOnline === true"></i>
+							</div>
+							<div class="col">
+								<i class="icon ion-android-mail" ng-hide="device.data.isTamperOpen === true"></i>
+								<i class="icon ion-android-drafts" ng-show="device.data.isTamperOpen === true"></i>
+							</div>
+							<div class="col">
+								<i class="icon ion-flash" ng-hide="device.data.isPowerLost === true"></i>
+								<i class="icon ion-flash-off" ng-show="device.data.isPowerLost === true"></i>
+							</div>
+							<div class="col">
+								<i class="icon ion-battery-full" ng-hide="device.data.isBatteryLow === true"></i>
+								<i class="icon ion-battery-empty" ng-show="device.data.isBatteryLow === true"></i>
+							</div>
+
+						</div>
+
 						<div ng-show="device.data.isFailure === true">
 							<div class="assertive item item-icon-left">
 								<i class="assertive icon ion-alert"></i>
@@ -20,11 +44,6 @@
 						</div>
 
 						<div ng-hide="device.data.isFailure === true">
-
-							<ion-item class="item item-icon-left">
-								<i ng-class="device.getMainIconClass()" ng-click="device.showDeviceActionSheet()"></i>
-								{{device.lastHistoryRecord.info}}&nbsp;
-							</ion-item>
 
 							<div style="display: flex; flex-flow: row wrap;">
 								<div class="energized item item-icon-left" ng-show="!device.data.isOff && device.data.isOnline === false" style="flex: auto; margin: 0px;">
@@ -44,6 +63,11 @@
 									Battery low
 								</div>
 							</div>
+
+							<ion-item class="item item-icon-left">
+								<i ng-class="device.getMainIconClass()" ng-click="device.showDeviceActionSheet()"></i>
+								{{device.lastHistoryRecord.info}}&nbsp;
+							</ion-item>
 
 							<ion-item class="item item-divider">
 								<button class="button button-clear button-small button-positive" ng-click="device.cmdArm()" ng-disabled="device.data.isOff === true || device.data.isOnline === false">Arm</button>

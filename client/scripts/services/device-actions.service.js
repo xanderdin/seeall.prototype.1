@@ -182,7 +182,7 @@ function DeviceActions($rootScope, $ionicActionSheet, $ionicPopup,
 		this._scope.newName = device.name;
 
 		$ionicPopup.show({
-			title: 'GID: ' + device._id,
+			title: '<strong>GID</strong>:' + device._id,
 			templateUrl: 'client/templates/device-edit-popup.html',
 			scope: this._scope,
 			buttons: [

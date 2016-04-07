@@ -112,7 +112,7 @@ function ZonesFunctions() {
 
             case 'siren':
 
-                result = 'calm icon ion-speakerphone';
+                result = 'positive icon ion-speakerphone';
 
                 break;
 
