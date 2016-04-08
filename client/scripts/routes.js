@@ -14,6 +14,18 @@ function config($stateProvider, $urlRouterProvider) {
 			controller: 'AppCtrl as app'
 		})
 
+		.state('app.login', {
+			url: '/login',
+			//templateUrl: 'client/templates/login.html',
+			//controller: 'LoginCtrl as login'
+			views: {
+				'content-area': {
+					templateUrl: 'client/templates/login.html',
+					controller: 'LoginCtrl as login'
+				}
+			}
+		})
+
 		.state('app.devices', {
 			url: '/devices',
 			views: {

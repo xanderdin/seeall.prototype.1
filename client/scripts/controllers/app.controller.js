@@ -14,6 +14,9 @@ function AppCtrl($scope, $reactive, NewDeviceModal, DevicesFunctions) {
 		},
 		isConnected: function() {
 			return Meteor.status().connected;
+		},
+		isLoggedIn: function() {
+			return Meteor.userId() !== null;
 		}
 	});
 

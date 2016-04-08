@@ -36,14 +36,19 @@
 					App
 				</ion-item>
 
+				<ion-item menu-close class="item-icon-left" href="#/app/login" ng-if="!app.isLoggedIn">
+					<i class="icon ion-log-in"></i>
+					Login
+				</ion-item>
+
+				<ion-item menu-close class="item-icon-left" href="#/app/logout" ng-if="app.isLoggedIn">
+					<i class="icon ion-log-out"></i>
+					Logout
+				</ion-item>
+
 				<ion-item menu-close class="item-icon-left" href="#/app/settings">
 					<i class="icon ion-settings"></i>
 					Settings
-				</ion-item>
-
-				<ion-item menu-close class="item-icon-left" href="#/app/logout">
-					<i class="icon ion-log-out"></i>
-					Logout
 				</ion-item>
 
 				<ion-item menu-close class="item-icon-left" href="#/app/help">
