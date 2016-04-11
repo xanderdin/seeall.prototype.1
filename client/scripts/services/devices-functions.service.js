@@ -17,7 +17,7 @@ function DevicesFunctions(ZonesFunctions) {
 
     function isArmed(device) {
 
-        if (device.zones) {
+        if (device && device.zones) {
             for (i = 0; i < device.zones.length; i++) {
                 if (device.zones[i].isArmed === true) {
                     return true;
@@ -30,6 +30,10 @@ function DevicesFunctions(ZonesFunctions) {
 
 
     function isInAlarm(device) {
+
+        if (!device) {
+            return false;
+        }
 
         if (device.zones) {
             for (i = 0; i < device.zones.length; i++) {
@@ -48,6 +52,10 @@ function DevicesFunctions(ZonesFunctions) {
 
 
     function hasAttentionInfo(device) {
+
+        if (!device) {
+            return false;
+        }
 
         if (device.isOnline === false) {
             return true;
@@ -71,7 +79,7 @@ function DevicesFunctions(ZonesFunctions) {
 
     function hasZonesAttentionInfo(device) {
 
-        if (device.zones) {
+        if (device && device.zones) {
             for (i = 0; i < device.zones.length; i++) {
                 if (ZonesFunctions.hasAttentionInfo(device.zones[i])) {
                     return true;
@@ -101,7 +109,9 @@ function DevicesFunctions(ZonesFunctions) {
         //    return 'dark icon ion-ios-help-outline';
         //} else
 
-        if (device.isFailure === true) {
+        if (!device) {
+			return 'dark icon ion-help';
+        } else if (device.isFailure === true) {
             return 'assertive icon ion-sad-outline';
         } else if (device.isOff === true) {
             return 'dark icon ion-ios-lightbulb';
@@ -116,6 +126,10 @@ function DevicesFunctions(ZonesFunctions) {
 
 
     function getSecondaryIconCalss(device) {
+
+        if (!device) {
+            return '';
+        }
 
         var icon = ' icon ion-alert';
 

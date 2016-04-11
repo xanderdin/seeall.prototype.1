@@ -14,6 +14,10 @@ function ZonesFunctions() {
 
     function isInAlarm(zone) {
 
+        if (!zone) {
+            return false;
+        }
+
         // Check zone tamper state despite of 'armed' state
         if (zone.isTamperOpen === true) {
             return true;
@@ -37,6 +41,10 @@ function ZonesFunctions() {
 
 
     function hasAttentionInfo(zone) {
+
+        if (!zone) {
+            return false;
+        }
 
         if (zone.isTamperOpen === true) {
             return true;
@@ -64,6 +72,10 @@ function ZonesFunctions() {
 
     function hasAdditionalInfo(zone) {
 
+        if (!zone) {
+            return false;
+        }
+
         if (zone.isTamperOpen !== undefined && zone.isTamperOpen !== null) {
             return true;
         }
@@ -89,6 +101,10 @@ function ZonesFunctions() {
 
 
     function getMainIconClass(zone) {
+
+        if (!zone) {
+            return 'dark icon ion-ios-help-outline';
+        }
 
         var result;
 
@@ -129,7 +145,7 @@ function ZonesFunctions() {
 
     function getSecondaryIconClass(zone) {
 
-        if (hasAttentionInfo(zone)) {
+        if (zone && hasAttentionInfo(zone)) {
             return 'energized icon ion-alert';
         }
 

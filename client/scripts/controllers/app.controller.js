@@ -3,7 +3,8 @@ angular
 	.controller('AppCtrl', AppCtrl);
 
 
-function AppCtrl($scope, $reactive, NewDeviceModal, DevicesFunctions) {
+function AppCtrl($scope, $reactive, $state, $ionicHistory, $ionicLoading,
+				 NewDeviceModal, DevicesFunctions) {
 
 	$reactive(this).attach($scope);
 
@@ -24,7 +25,17 @@ function AppCtrl($scope, $reactive, NewDeviceModal, DevicesFunctions) {
 	this.showNewDeviceModal = showNewDeviceModal;
 	this.getDeviceMainIconClass = getDeviceMainIconClass;
 	this.getDeviceSecondaryIconClass = getDeviceSecondaryIconClass;
+	this.logOut = logOut;
 
+
+	function logOut() {
+		$ionicLoading.show();
+        Meteor.logout(function() {
+			$ionicHistory.currentView($ionicHistory.backView());
+            $state.go('app.login', null, { location: 'replace' });
+			$ionicLoading.hide();
+		});
+    }
 
 	function showNewDeviceModal() {
 		NewDeviceModal.showModal();

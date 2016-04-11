@@ -14,17 +14,16 @@
                 <form name="loginForm" ng-model="login.loginForm" novalidate>
                     <div class="padding">
                         <label class="item item-input">
-                            <input type="text" name="username" ng-model="login.username" placeholder="Username" required style="max-width: 99%;">
+                            <input type="text" name="username" ng-model="login.username" placeholder="Username" required>
                         </label>
                         <label class="item item-input">
-                            <input type="password" name="password" ng-model="login.password" placeholder="Password" required style="max-width: 99%;">
+                            <input type="password" name="password" ng-model="login.password" placeholder="Password" required>
                         </label>
                         <label class="item item-input" ng-if="login.register">
-                            <!--<input type="password" name="password2" ng-model="login.password2" placeholder="Password (again)" required passwords-match style="max-width: 99%;">-->
-                            <input type="password" name="password2" ng-model="login.password2" placeholder="Password (again)" required style="max-width: 99%;">
+                            <input type="password" name="password2" ng-model="login.password2" placeholder="Password (again)" required match-with="login.password">
                         </label>
                         <label class="item item-input" ng-if="login.register">
-                            <input type="email" name="email" ng-model="login.email" placeholder="Email" required style="max-width: 99%;">
+                            <input type="email" name="email" ng-model="login.email" placeholder="Email" required>
                         </label>
 
                         <ion-checkbox class="item" ng-model="login.register">New User</ion-checkbox>

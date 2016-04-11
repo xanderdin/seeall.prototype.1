@@ -1,21 +1,29 @@
 angular
     .module('SeeAll')
-    .directive('passwordsMatch', PasswordsMatch);
+    .directive('matchWith', MatchWith);
 
 
-function PasswordsMatch($rootScope) {
+function MatchWith() {
     return {
         require: 'ngModel',
+        scope: {
+            otherModelValue: "=matchWith"
+        },
         link: function(scope, element, attr, mCtrl) {
-            function myValidation(value) {
-                if (value === scope.password) { // FIXME
-                    mCtrl.$setValidity('passwMatch', true);
-                } else {
-                    mCtrl.$setValidity('passwMatch', false);
+
+            mCtrl.$validators.compareTo = function(modelValue) {
+                if (modelValue === undefined) {
+                    return false;
                 }
-                return value;
-            }
-            mCtrl.$parsers.push(myValidation);
+                if (scope.otherModelValue === undefined) {
+                    return false;
+                }
+                return modelValue === scope.otherModelValue;
+            };
+
+            scope.$watch("otherModelValue", function() {
+                mCtrl.$validate();
+            });
         }
     };
 }
