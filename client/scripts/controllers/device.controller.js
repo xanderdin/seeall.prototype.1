@@ -8,6 +8,8 @@ export default class DeviceCtrl extends Controller {
 
 		this.devId = this.$stateParams.devId;
 
+		Meteor.subscribe('users', this.devId);
+
 		this.helpers({
 			data: function() {
 				return Devices.findOne(this.devId);
@@ -19,6 +21,10 @@ export default class DeviceCtrl extends Controller {
 
 			lastHistoryRecord: function() {
 				return History.findOne({ deviceId: this.devId }, { sort: { at: -1 }});
+			},
+
+			users: function() {
+				return DeviceUsers.find();
 			}
 		});
 	}

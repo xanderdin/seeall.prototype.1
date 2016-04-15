@@ -121,10 +121,11 @@
 				<ion-nav-view name="device-users">
 					<ion-content>
 						<ion-list>
-							<ion-item>01 Me</ion-item>
+							<ion-item ng-repeat="user in device.users">{{user.username}}</ion-item>
+<!--							<ion-item>01 Me</ion-item>
 							<ion-item>02 Mike</ion-item>
 							<ion-item>03 Alice</ion-item>
-							<ion-item>04 John</ion-item>
+							<ion-item>04 John</ion-item>-->
 						</ion-list>
 					</ion-content>
 				</ion-nav-view>

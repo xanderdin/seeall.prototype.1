@@ -5,6 +5,10 @@ export default class DevicesFunctions extends Service {
 
     constructor() {
         super(...arguments);
+
+		Meteor.subscribe('devices');
+        Meteor.subscribe('history');
+        //Meteor.subscribe('users');
     }
 
 
