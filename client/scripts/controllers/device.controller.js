@@ -1,150 +1,257 @@
-angular
-	.module('SeeAll')
-	.controller('DeviceCtrl', DeviceCtrl);
+import { Controller } from '../entities';
 
 
-function DeviceCtrl($scope, $reactive, $stateParams, $ionicScrollDelegate,
-					DevicesFunctions, DeviceActions, DeviceInfoPopup,
-					ZonesFunctions, ZoneActions, ZoneInfoPopup) {
+export default class DeviceCtrl extends Controller {
 
-	$reactive(this).attach($scope);
+	constructor() {
+		super(...arguments);
 
-	var devId = $stateParams.devId;
+		this.devId = this.$stateParams.devId;
 
-	this.helpers({
-		data: function() {
-			return Devices.findOne(devId);
-		},
+		this.helpers({
+			data: function() {
+				return Devices.findOne(this.devId);
+			},
 
-		history: function() {
-			return History.find({ deviceId: devId }, { sort: { at:  -1 }});
-		},
+			history: function() {
+				return History.find({ deviceId: this.devId }, { sort: { at:  -1 }});
+			},
 
-		lastHistoryRecord: function() {
-			return History.findOne({ deviceId: devId }, { sort: { at: -1 }});
-		}
-	});
-
-
-	//$scope.$watchCollection('device.history', (oldVal, newVal) => {
-	//	var animate = oldVal.length !== newVal.length;
-	//	$ionicScrollDelegate.$getByHandle('historyScroll').scrollBottom(animate);
-	//});
+			lastHistoryRecord: function() {
+				return History.findOne({ deviceId: this.devId }, { sort: { at: -1 }});
+			}
+		});
+	}
 
 
-	//this.showDeviceEditActionSheet = showDeviceEditActionSheet;
-	//this.showDeviceCmdActionSheet = showDeviceCmdActionSheet;
-	//this.showZoneEditActionSheet = showZoneEditActionSheet;
-	//this.showZoneCmdActionSheet = showZoneCmdActionSheet;
-	this.showDeviceActionSheet = showDeviceActionSheet;
-	this.showZoneActionSheet = showZoneActionSheet;
-	this.showDeviceInfoPopup = showDeviceInfoPopup;
-	this.showZoneInfoPopup = showZoneInfoPopup;
-	this.cmdArm = cmdArm;
-	this.cmdDisarm = cmdDisarm;
-	this.cmdState = cmdState;
-	this.zoneCmdArm = zoneCmdArm;
-	this.zoneCmdDisarm = zoneCmdDisarm;
-	this.getIsArmed = getIsArmed;
-	this.getMainIconClass = getMainIconClass;
-	this.getSecondaryIconClass = getSecondaryIconClass;
-	this.getZoneMainIconClass = getZoneMainIconClass;
-	this.getZoneSecondaryIconClass = getZoneSecondaryIconClass;
-	this.hasZoneAttentionInfo = hasZoneAttentionInfo;
-
-
-	//function showDeviceEditActionSheet() {
-	//	DeviceActions.showEditActionSheet(this.data);
-	//}
-	//
-	//
-	//function showDeviceCmdActionSheet() {
-	//	DeviceActions.showCmdActionSheet(this.data);
-	//}
-
-
-	function showDeviceActionSheet() {
+	showDeviceActionSheet() {
         DeviceActions.showActionSheet(this.data);
     }
 
 
-	function cmdArm() {
-        DeviceActions.cmdArm(this.data);
+	cmdArm() {
+        this.DeviceActions.cmdArm(this.data);
     }
 
 
-	function cmdDisarm() {
-        DeviceActions.cmdDisarm(this.data);
+	cmdDisarm() {
+        this.DeviceActions.cmdDisarm(this.data);
     }
 
 
-	function cmdState() {
-        DeviceActions.cmdState(this.data);
+	cmdState() {
+        this.DeviceActions.cmdState(this.data);
     }
 
 
-	//function showZoneEditActionSheet(zone) {
-	//	ZoneActions.showEditActionSheet(this.data, zone);
-	//}
-	//
-	//
-	//function showZoneCmdActionSheet(zone) {
-	//	ZoneActions.showCmdActionSheet(this.data, zone);
-	//}
-
-
-	function showZoneActionSheet(zone) {
-        ZoneActions.showActionSheet(this.data, zone);
+	showZoneActionSheet(zone) {
+        this.ZoneActions.showActionSheet(this.data, zone);
     }
 
 
-	function showDeviceInfoPopup(device) {
-        DeviceInfoPopup.showPopup(device);
+	showDeviceInfoPopup(device) {
+        this.DeviceInfoPopup.showPopup(device);
     }
-	
 
-	function showZoneInfoPopup(zone) {
-		ZoneInfoPopup.showPopup(zone);
+
+	showZoneInfoPopup(zone) {
+		this.ZoneInfoPopup.showPopup(zone);
 	}
 
 
-	function zoneCmdArm(zone) {
-        ZoneActions.cmdArm(this.data, zone);
+	zoneCmdArm(zone) {
+        this.ZoneActions.cmdArm(this.data, zone);
     }
 
 
-	function zoneCmdDisarm(zone) {
-        ZoneActions.cmdDisarm(this.data, zone);
+	zoneCmdDisarm(zone) {
+        this.ZoneActions.cmdDisarm(this.data, zone);
     }
 
 
-	function getIsArmed() {
-        return DevicesFunctions.isArmed(this.data);
+	getIsArmed() {
+        return this.DevicesFunctions.isArmed(this.data);
     }
 
 
-	function getMainIconClass() {
-        return DevicesFunctions.getMainIconClass(this.data);
+	getMainIconClass() {
+        return this.DevicesFunctions.getMainIconClass(this.data);
     }
 
 
-	function getSecondaryIconClass() {
-        return DevicesFunctions.getSecondaryIconClass(this.data);
+	getSecondaryIconClass() {
+        return this.DevicesFunctions.getSecondaryIconClass(this.data);
     }
 
 
-	function getZoneMainIconClass(zone) {
-        return ZonesFunctions.getMainIconClass(zone);
+	getZoneMainIconClass(zone) {
+        return this.ZonesFunctions.getMainIconClass(zone);
     }
 
 
-	function getZoneSecondaryIconClass(zone) {
-        return ZonesFunctions.getSecondaryIconClass(zone);
+	getZoneSecondaryIconClass(zone) {
+        return this.ZonesFunctions.getSecondaryIconClass(zone);
     }
 
 
-	function hasZoneAttentionInfo(zone) {
-        return ZonesFunctions.hasAttentionInfo(zone);
+	hasZoneAttentionInfo(zone) {
+        return this.ZonesFunctions.hasAttentionInfo(zone);
     }
-
 }
+
+
+DeviceCtrl.$inject = ['$scope', '$stateParams', '$ionicScrollDelegate',
+					  'DevicesFunctions', 'DeviceActions', 'DeviceInfoPopup',
+					  'ZonesFunctions', 'ZoneActions', 'ZoneInfoPopup'];
+
+
+//angular
+//	.module('SeeAll')
+//	.controller('DeviceCtrl', DeviceCtrl);
+//
+//
+//function DeviceCtrl($scope, $reactive, $stateParams, $ionicScrollDelegate,
+//					DevicesFunctions, DeviceActions, DeviceInfoPopup,
+//					ZonesFunctions, ZoneActions, ZoneInfoPopup) {
+//
+//	$reactive(this).attach($scope);
+//
+//	var devId = $stateParams.devId;
+//
+//	this.helpers({
+//		data: function() {
+//			return Devices.findOne(devId);
+//		},
+//
+//		history: function() {
+//			return History.find({ deviceId: devId }, { sort: { at:  -1 }});
+//		},
+//
+//		lastHistoryRecord: function() {
+//			return History.findOne({ deviceId: devId }, { sort: { at: -1 }});
+//		}
+//	});
+//
+//
+//	//$scope.$watchCollection('device.history', (oldVal, newVal) => {
+//	//	var animate = oldVal.length !== newVal.length;
+//	//	$ionicScrollDelegate.$getByHandle('historyScroll').scrollBottom(animate);
+//	//});
+//
+//
+//	//this.showDeviceEditActionSheet = showDeviceEditActionSheet;
+//	//this.showDeviceCmdActionSheet = showDeviceCmdActionSheet;
+//	//this.showZoneEditActionSheet = showZoneEditActionSheet;
+//	//this.showZoneCmdActionSheet = showZoneCmdActionSheet;
+//	this.showDeviceActionSheet = showDeviceActionSheet;
+//	this.showZoneActionSheet = showZoneActionSheet;
+//	this.showDeviceInfoPopup = showDeviceInfoPopup;
+//	this.showZoneInfoPopup = showZoneInfoPopup;
+//	this.cmdArm = cmdArm;
+//	this.cmdDisarm = cmdDisarm;
+//	this.cmdState = cmdState;
+//	this.zoneCmdArm = zoneCmdArm;
+//	this.zoneCmdDisarm = zoneCmdDisarm;
+//	this.getIsArmed = getIsArmed;
+//	this.getMainIconClass = getMainIconClass;
+//	this.getSecondaryIconClass = getSecondaryIconClass;
+//	this.getZoneMainIconClass = getZoneMainIconClass;
+//	this.getZoneSecondaryIconClass = getZoneSecondaryIconClass;
+//	this.hasZoneAttentionInfo = hasZoneAttentionInfo;
+//
+//
+//	//function showDeviceEditActionSheet() {
+//	//	DeviceActions.showEditActionSheet(this.data);
+//	//}
+//	//
+//	//
+//	//function showDeviceCmdActionSheet() {
+//	//	DeviceActions.showCmdActionSheet(this.data);
+//	//}
+//
+//
+//	function showDeviceActionSheet() {
+//        DeviceActions.showActionSheet(this.data);
+//    }
+//
+//
+//	function cmdArm() {
+//        DeviceActions.cmdArm(this.data);
+//    }
+//
+//
+//	function cmdDisarm() {
+//        DeviceActions.cmdDisarm(this.data);
+//    }
+//
+//
+//	function cmdState() {
+//        DeviceActions.cmdState(this.data);
+//    }
+//
+//
+//	//function showZoneEditActionSheet(zone) {
+//	//	ZoneActions.showEditActionSheet(this.data, zone);
+//	//}
+//	//
+//	//
+//	//function showZoneCmdActionSheet(zone) {
+//	//	ZoneActions.showCmdActionSheet(this.data, zone);
+//	//}
+//
+//
+//	function showZoneActionSheet(zone) {
+//        ZoneActions.showActionSheet(this.data, zone);
+//    }
+//
+//
+//	function showDeviceInfoPopup(device) {
+//        DeviceInfoPopup.showPopup(device);
+//    }
+//
+//
+//	function showZoneInfoPopup(zone) {
+//		ZoneInfoPopup.showPopup(zone);
+//	}
+//
+//
+//	function zoneCmdArm(zone) {
+//        ZoneActions.cmdArm(this.data, zone);
+//    }
+//
+//
+//	function zoneCmdDisarm(zone) {
+//        ZoneActions.cmdDisarm(this.data, zone);
+//    }
+//
+//
+//	function getIsArmed() {
+//        return DevicesFunctions.isArmed(this.data);
+//    }
+//
+//
+//	function getMainIconClass() {
+//        return DevicesFunctions.getMainIconClass(this.data);
+//    }
+//
+//
+//	function getSecondaryIconClass() {
+//        return DevicesFunctions.getSecondaryIconClass(this.data);
+//    }
+//
+//
+//	function getZoneMainIconClass(zone) {
+//        return ZonesFunctions.getMainIconClass(zone);
+//    }
+//
+//
+//	function getZoneSecondaryIconClass(zone) {
+//        return ZonesFunctions.getSecondaryIconClass(zone);
+//    }
+//
+//
+//	function hasZoneAttentionInfo(zone) {
+//        return ZonesFunctions.hasAttentionInfo(zone);
+//    }
+//
+//}

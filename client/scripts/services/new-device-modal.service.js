@@ -1,19 +1,19 @@
-angular
-	.module('SeeAll')
-	.service('NewDeviceModal', NewDeviceModal);
+import { Service } from '../entities';
 
 
-function NewDeviceModal($rootScope, $ionicModal) {
+export default class NewDeviceModal extends Service {
 
-	var templateUrl = 'client/templates/new-device-modal.html';
+	constructor() {
+		super(...arguments);
 
-	this.showModal = showModal;
-	this.hideModal = hideModal;
+		this.templateUrl = 'client/templates/new-device-modal.html';
+	}
 
-	function showModal() {
-		this._scope = $rootScope.$new();
 
-		$ionicModal.fromTemplateUrl(templateUrl, {
+	showModal() {
+		this._scope = this.$rootScope.$new();
+
+		this.$ionicModal.fromTemplateUrl(this.templateUrl, {
 			scope: this._scope
 		}).then((modal) => {
 			this._modal = modal;
@@ -21,8 +21,41 @@ function NewDeviceModal($rootScope, $ionicModal) {
 		});
 	}
 
-	function hideModal() {
+	hideModal() {
 		this._scope.$destroy();
 		this._modal.remove();
 	}
 }
+
+
+NewDeviceModal.$inject = ['$rootScope', '$ionicModal'];
+
+
+//angular
+//	.module('SeeAll')
+//	.service('NewDeviceModal', NewDeviceModal);
+//
+//
+//function NewDeviceModal($rootScope, $ionicModal) {
+//
+//	var templateUrl = 'client/templates/new-device-modal.html';
+//
+//	this.showModal = showModal;
+//	this.hideModal = hideModal;
+//
+//	function showModal() {
+//		this._scope = $rootScope.$new();
+//
+//		$ionicModal.fromTemplateUrl(templateUrl, {
+//			scope: this._scope
+//		}).then((modal) => {
+//			this._modal = modal;
+//			modal.show();
+//		});
+//	}
+//
+//	function hideModal() {
+//		this._scope.$destroy();
+//		this._modal.remove();
+//	}
+//}

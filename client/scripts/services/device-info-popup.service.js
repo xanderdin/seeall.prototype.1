@@ -1,24 +1,56 @@
-angular
-    .module('SeeAll')
-    .service('DeviceInfoPopup', DeviceInfoPopup);
+import { Service } from '../entities';
 
 
-function DeviceInfoPopup($ionicPopup, $rootScope) {
+export default class DeviceInfoPopup extends Service {
 
-	var templateUrl = 'client/templates/device-info-popup.html';
+	constructor() {
+		super(...arguments);
 
-	this.showPopup = function(device) {
+		this.templateUrl = 'client/templates/device-info-popup.html';
+	}
+
+
+	showPopup(device) {
 
 		var title = device.name ? device.name : device._id;
 
-		this._scope = $rootScope.$new();
+		this._scope = this.$rootScope.$new();
 		this._scope.device = device;
 
-		var alertPopup = $ionicPopup.show({
+		this.$ionicPopup.show({
 			title: title,
-			templateUrl: templateUrl,
+			templateUrl: this.templateUrl,
 			scope: this._scope,
 			buttons: [ { text: 'OK' } ]
 		});
 	};
 }
+
+
+DeviceInfoPopup.$inject = ['$ionicPopup', '$rootScope'];
+
+
+//angular
+//    .module('SeeAll')
+//    .service('DeviceInfoPopup', DeviceInfoPopup);
+//
+//
+//function DeviceInfoPopup($ionicPopup, $rootScope) {
+//
+//	var templateUrl = 'client/templates/device-info-popup.html';
+//
+//	this.showPopup = function(device) {
+//
+//		var title = device.name ? device.name : device._id;
+//
+//		this._scope = $rootScope.$new();
+//		this._scope.device = device;
+//
+//		var alertPopup = $ionicPopup.show({
+//			title: title,
+//			templateUrl: templateUrl,
+//			scope: this._scope,
+//			buttons: [ { text: 'OK' } ]
+//		});
+//	};
+//}

@@ -10,7 +10,7 @@
 		</ion-header-bar>
 
 		<ion-content>
-			<ion-list>
+			<ion-list ng-if="app.isLoggedIn">
 
 				<ion-item class="item-divider">
 					Devices
@@ -31,6 +31,10 @@
 					<i class="icon ion-plus"></i>
 					Add Device
 				</ion-item>
+
+			</ion-list>
+
+			<ion-list>
 
 				<ion-item class="item-divider">
 					App
