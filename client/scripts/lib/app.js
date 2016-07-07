@@ -75,6 +75,11 @@ function AppConfig($ionicConfigProvider) {
 }
 
 
+Meteor.subscribe('devices');
+Meteor.subscribe('history');
+//Meteor.subscribe('devusers', devId);
+
+
 // Startup
 if (Meteor.isCordova) {
 	angular.element(document).on('deviceready', onReady);

@@ -11,14 +11,4 @@ export default class DeviceInfoPopupCtrl extends Controller {
 }
 
 
-DeviceInfoPopupCtrl.$inject = ['$scope', '$DevicesFunctions'];
-
-
-//angular
-//    .module('SeeAll')
-//    .controller('DeviceInfoPopupCtrl', DeviceInfoPopupCtrl);
-//
-//
-//function DeviceInfoPopupCtrl($scope, DevicesFunctions) {
-//    $scope.hasAttentionInfo = DevicesFunctions.hasAttentionInfo($scope.device);
-//}
+DeviceInfoPopupCtrl.$inject = ['$scope', 'DevicesFunctions'];

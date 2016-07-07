@@ -1,8 +1,38 @@
 Meteor.startup(function() {
 
+	// FIXME: The following code is for demo purposes only. Remove it in
+	// production.
+
+	if (Meteor.users.find().count() !== 0) {
+        return;
+    }
+
+
 	if (Devices.find().count() !== 0) {
 		return;
 	}
+
+
+	Accounts.createUser({
+		username: 'aaa',
+		password: 'asdf',
+		email: 'aaa@example.com'
+	});
+
+
+	Accounts.createUser({
+		username: 'bbb',
+		password: 'zxcv',
+		email: 'bbb@example.com'
+	});
+
+
+	Accounts.createUser({
+		username: 'ccc',
+		password: 'qwer',
+		email: 'ccc@example.com'
+	});
+
 
 	var devices = [
 		{
@@ -15,6 +45,9 @@ Meteor.startup(function() {
 			isFailure: false,
 			isOff: false,
 			//simBalance:
+			users: [
+				{ _id: Meteor.users.findOne({username: 'aaa'})._id }
+			],
 			zones: [
 				{
 					_id: 1,
@@ -84,6 +117,9 @@ Meteor.startup(function() {
 			isFailure: false,
 			isOff: false,
 			//simBalance:
+			users: [
+				{ _id: Meteor.users.findOne({username: 'aaa'})._id }
+			],
 			zones: [
 				{
 					_id: 1,
@@ -108,8 +144,8 @@ Meteor.startup(function() {
 					isFired: false,
 					//isInAlarm: false,
 					isTamperOpen: false,
-					isBatteryLow: false,
-					isPowerLost: false,
+					isBatteryLow: true,
+					isPowerLost: true,
 					isLinkLost: false,
 					isFailure: false
 				},
@@ -129,7 +165,7 @@ Meteor.startup(function() {
 				},
 				{
 					_id: 4,
-					//type:
+					type: 'siren',
 					name: 'Back',
 					//state:
 					isArmed: false,
@@ -153,6 +189,11 @@ Meteor.startup(function() {
 			isFailure: false,
 			isOff: false,
 			//simBalance:
+			users: [
+				{ _id: Meteor.users.findOne({username: 'aaa'})._id },
+				{ _id: Meteor.users.findOne({username: 'bbb'})._id },
+				{ _id: Meteor.users.findOne({username: 'ccc'})._id }
+			],
 			zones: [
 				{
 					_id: 1,
@@ -270,14 +311,17 @@ Meteor.startup(function() {
 		},
 		{
 			_id: '030400000004',
-			name: 'Palace',
+			name: 'My home',
 			isOnline: true,
 			isTamperOpen: false,
 			isBatteryLow: false,
-			isPowerLost: false,
+			isPowerLost: true,
 			isFailure: false,
 			isOff: false,
 			//simBalance:
+			users: [
+				{ _id: Meteor.users.findOne({username: 'bbb'})._id }
+			],
 			zones: [
 				{
 					_id: 1,
@@ -304,7 +348,7 @@ Meteor.startup(function() {
 					isTamperOpen: false,
 					isBatteryLow: false,
 					isPowerLost: false,
-					isLinkLost: false,
+					isLinkLost: true,
 					isFailure: false
 				},
 				{
@@ -323,7 +367,7 @@ Meteor.startup(function() {
 				},
 				{
 					_id: 4,
-					//type:
+					type: 'siren',
 					//name: 'Conference room',
 					//state:
 					isArmed: false,
@@ -361,7 +405,7 @@ Meteor.startup(function() {
 					isBatteryLow: false,
 					isPowerLost: false,
 					isLinkLost: false,
-					isFailure: false
+					isFailure: true
 				},
 				{
 					_id: 7,
@@ -393,7 +437,7 @@ Meteor.startup(function() {
 				},
 				{
 					_id: 9,
-					//type:
+					type: 'siren',
 					//name: 'Door',
 					//state:
 					isArmed: false,
@@ -455,7 +499,7 @@ Meteor.startup(function() {
 					isArmed: false,
 					isFired: false,
 					//isInAlarm: false,
-					isTamperOpen: false,
+					isTamperOpen: true,
 					isBatteryLow: false,
 					isPowerLost: false,
 					isLinkLost: false,
@@ -515,6 +559,10 @@ Meteor.startup(function() {
 			isFailure: false,
 			isOff: false,
 			//simBalance:
+			users: [
+				{ _id: Meteor.users.findOne({username: 'bbb'})._id },
+				{ _id: Meteor.users.findOne({username: 'ccc'})._id }
+			],
 			zones: [
 				{
 					_id: 1,
@@ -568,7 +616,7 @@ Meteor.startup(function() {
 					//isInAlarm: false,
 					isTamperOpen: false,
 					isBatteryLow: false,
-					isPowerLost: false,
+					isPowerLost: true,
 					isLinkLost: false,
 					isFailure: false
 				},

@@ -1,0 +1,97 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node',
+1 verbose cli   '/home/aledin/.meteor/packages/meteor-tool/.1.3.1.o2g7j9++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/dev_bundle/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'angular-meteor-accounts-password',
+1 verbose cli   '--save' ]
+2 info using npm@2.14.22
+3 info using node@v0.10.43
+4 verbose install initial load of /home/aledin/projects/Meteor/seeall/package.json
+5 verbose installManyTop reading scoped package data from /home/aledin/projects/Meteor/seeall/node_modules/angular/package.json
+6 verbose installManyTop reading scoped package data from /home/aledin/projects/Meteor/seeall/node_modules/angular-animate/package.json
+7 verbose installManyTop reading scoped package data from /home/aledin/projects/Meteor/seeall/node_modules/angular-meteor/package.json
+8 verbose installManyTop reading scoped package data from /home/aledin/projects/Meteor/seeall/node_modules/angular-meteor-auth/package.json
+9 verbose installManyTop reading scoped package data from /home/aledin/projects/Meteor/seeall/node_modules/angular-sanitize/package.json
+10 verbose installManyTop reading scoped package data from /home/aledin/projects/Meteor/seeall/node_modules/angular-ui-router/package.json
+11 verbose installManyTop reading scoped package data from /home/aledin/projects/Meteor/seeall/node_modules/ionic-scripts/package.json
+12 info package.json angular-meteor-auth@1.0.2 No repository field.
+13 info package.json angular-meteor@1.3.10 No repository field.
+14 info package.json ionic-scripts@0.0.1 No repository field.
+15 verbose readDependencies loading dependencies from /home/aledin/projects/Meteor/seeall/package.json
+16 silly cache add args [ 'angular-meteor-accounts-password', null ]
+17 verbose cache add spec angular-meteor-accounts-password
+18 silly cache add parsed spec { raw: 'angular-meteor-accounts-password',
+18 silly cache add   scope: null,
+18 silly cache add   name: 'angular-meteor-accounts-password',
+18 silly cache add   rawSpec: '',
+18 silly cache add   spec: 'latest',
+18 silly cache add   type: 'tag' }
+19 silly addNamed angular-meteor-accounts-password@latest
+20 verbose addNamed "latest" is being treated as a dist-tag for angular-meteor-accounts-password
+21 info addNameTag [ 'angular-meteor-accounts-password', 'latest' ]
+22 silly mapToRegistry name angular-meteor-accounts-password
+23 silly mapToRegistry using default registry
+24 silly mapToRegistry registry https://registry.npmjs.org/
+25 silly mapToRegistry uri https://registry.npmjs.org/angular-meteor-accounts-password
+26 verbose addNameTag registry:https://registry.npmjs.org/angular-meteor-accounts-password not in flight; fetching
+27 verbose request uri https://registry.npmjs.org/angular-meteor-accounts-password
+28 verbose request no auth needed
+29 info attempt registry request try #1 at 17:10:43
+30 verbose request id 8e5c0989d97903c6
+31 http request GET https://registry.npmjs.org/angular-meteor-accounts-password
+32 http 404 https://registry.npmjs.org/angular-meteor-accounts-password
+33 verbose headers { 'content-type': 'application/json',
+33 verbose headers   'cache-control': 'max-age=0',
+33 verbose headers   'content-length': '2',
+33 verbose headers   'accept-ranges': 'bytes',
+33 verbose headers   date: 'Tue, 12 Apr 2016 14:10:44 GMT',
+33 verbose headers   via: '1.1 varnish',
+33 verbose headers   age: '0',
+33 verbose headers   connection: 'keep-alive',
+33 verbose headers   'x-served-by': 'cache-fra1223-FRA',
+33 verbose headers   'x-cache': 'MISS',
+33 verbose headers   'x-cache-hits': '0',
+33 verbose headers   'x-timer': 'S1460470244.202587,VS0,VE755',
+33 verbose headers   vary: 'Accept-Encoding' }
+34 silly get cb [ 404,
+34 silly get   { 'content-type': 'application/json',
+34 silly get     'cache-control': 'max-age=0',
+34 silly get     'content-length': '2',
+34 silly get     'accept-ranges': 'bytes',
+34 silly get     date: 'Tue, 12 Apr 2016 14:10:44 GMT',
+34 silly get     via: '1.1 varnish',
+34 silly get     age: '0',
+34 silly get     connection: 'keep-alive',
+34 silly get     'x-served-by': 'cache-fra1223-FRA',
+34 silly get     'x-cache': 'MISS',
+34 silly get     'x-cache-hits': '0',
+34 silly get     'x-timer': 'S1460470244.202587,VS0,VE755',
+34 silly get     vary: 'Accept-Encoding' } ]
+35 verbose stack Error: Registry returned 404 for GET on https://registry.npmjs.org/angular-meteor-accounts-password
+35 verbose stack     at makeError (/home/aledin/.meteor/packages/meteor-tool/.1.3.1.o2g7j9++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/dev_bundle/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+35 verbose stack     at CachingRegistryClient.<anonymous> (/home/aledin/.meteor/packages/meteor-tool/.1.3.1.o2g7j9++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/dev_bundle/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:242:14)
+35 verbose stack     at Request._callback (/home/aledin/.meteor/packages/meteor-tool/.1.3.1.o2g7j9++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/dev_bundle/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+35 verbose stack     at Request.self.callback (/home/aledin/.meteor/packages/meteor-tool/.1.3.1.o2g7j9++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/dev_bundle/lib/node_modules/npm/node_modules/request/request.js:199:22)
+35 verbose stack     at Request.emit (events.js:98:17)
+35 verbose stack     at Request.<anonymous> (/home/aledin/.meteor/packages/meteor-tool/.1.3.1.o2g7j9++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/dev_bundle/lib/node_modules/npm/node_modules/request/request.js:1036:10)
+35 verbose stack     at Request.emit (events.js:117:20)
+35 verbose stack     at IncomingMessage.<anonymous> (/home/aledin/.meteor/packages/meteor-tool/.1.3.1.o2g7j9++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/dev_bundle/lib/node_modules/npm/node_modules/request/request.js:963:12)
+35 verbose stack     at IncomingMessage.emit (events.js:117:20)
+35 verbose stack     at _stream_readable.js:944:16
+36 verbose statusCode 404
+37 verbose pkgid angular-meteor-accounts-password
+38 verbose cwd /home/aledin/projects/Meteor/seeall
+39 error Linux 3.16.0-4-amd64
+40 error argv "node" "/home/aledin/.meteor/packages/meteor-tool/.1.3.1.o2g7j9++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/dev_bundle/bin/npm" "install" "angular-meteor-accounts-password" "--save"
+41 error node v0.10.43
+42 error npm  v2.14.22
+43 error code E404
+44 error 404 Registry returned 404 for GET on https://registry.npmjs.org/angular-meteor-accounts-password
+44 error 404
+44 error 404 'angular-meteor-accounts-password' is not in the npm registry.
+44 error 404 You should bug the author to publish it (or use the name yourself!)
+44 error 404 It was specified as a dependency of 'seeall'
+44 error 404
+44 error 404 Note that you can also install from a
+44 error 404 tarball, folder, http url, or git url.
+45 verbose exit [ 1, true ]

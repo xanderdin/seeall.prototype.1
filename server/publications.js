@@ -29,7 +29,7 @@ Meteor.publishComposite('history', function(){
 });
 
 
-Meteor.publishComposite('users', function(devId) {
+Meteor.publishComposite('devusers', function(devId) {
 
     if (!this.userId) {
         return;
@@ -49,7 +49,9 @@ Meteor.publishComposite('users', function(devId) {
 
                     if (device.users) {
                         for (i = 0; i < device.users.length; i++) {
-                            ids.push(device.users[i]._id);
+                            if (device.users[i] && device.users[i]._id) {
+                                ids.push(device.users[i]._id);
+                            }
                         }
                     }
 

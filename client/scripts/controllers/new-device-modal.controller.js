@@ -15,59 +15,39 @@ export default class NewDeviceModalCtrl extends Controller {
 
 	newDevice() {
 
-		this.hideNewDeviceModal();
+		const scope = this;
+
+		this.$ionicLoading.show();
 
 		Meteor.call('newDevice', {
 			_id: this.gid,
 			name: this.name
 		},
 		function(error, result) {
+			scope.$ionicLoading.hide();
+			scope.hideNewDeviceModal();
+			if (error) {
+                return scope.handleError(error);
+            }
 			if (result) {
-				this.$ionicHistory.currentView(this.$ionicHistory.backView());
-                this.$state.go('app.device',
+				scope.$ionicHistory.currentView(scope.$ionicHistory.backView());
+                scope.$state.go('app.device',
 							   { devId: result },
 							   { location: 'replace' });
             }
+		});
+	}
+
+
+	handleError(error) {
+		this.$ionicPopup.alert({
+			title: error.reason || 'Failed to add a new device',
+			template: 'Please try again',
+			okType: 'button-positive button-clear'
 		});
 	}
 }
 
 
 NewDeviceModalCtrl.$inject = ['$scope', '$state', '$ionicHistory',
-							  'NewDeviceModal'];
-
-
-//angular
-//	.module('SeeAll')
-//	.controller('NewDeviceModalCtrl', NewDeviceModalCtrl);
-//
-//
-//function NewDeviceModalCtrl($scope, $reactive, $state, $ionicHistory, NewDeviceModal) {
-//
-//	$reactive(this).attach($scope);
-//
-//	this.hideNewDeviceModal = hideNewDeviceModal;
-//	this.newDevice = newDevice;
-//
-//
-//	function hideNewDeviceModal() {
-//		NewDeviceModal.hideModal();
-//	}
-//
-//
-//	function newDevice() {
-//
-//		hideNewDeviceModal();
-//
-//		Meteor.call('newDevice', {
-//			_id: this.gid,
-//			name: this.name
-//		},
-//		function(error, result) {
-//			if (result) {
-//				$ionicHistory.currentView($ionicHistory.backView());
-//                $state.go('app.device', { devId: result }, { location: 'replace' });
-//            }
-//		});
-//	}
-//}
+							  '$ionicPopup', '$ionicLoading', 'NewDeviceModal'];
